@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Tablut v1.0
+  Tablut v1.1
   Copyright (C) 2026 Alessandro Valli
   SPDX-License-Identifier: AGPL-3.0-or-later
 -->
@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Tablut, l'hnefatafl descritto da Linneo in Lapponia, nel browser: regole dal testo latino, computer a tre livelli, audio, storia e regole illustrate. Italiano e inglese. / Tablut, the hnefatafl recorded by Linnaeus in Lapland, in the browser: rules from the Latin text, three-level computer, audio, story and illustrated rules. Italian and English.">
+<meta name="description" content="Tablut, l'hnefatafl descritto da Linneo in Lapponia, nel browser: regole dal testo latino e da altre tre fonti, computer a tre livelli, partita guidata con spiegazioni, audio, storia e regole illustrate. Italiano e inglese. / Tablut, the hnefatafl recorded by Linnaeus in Lapland, in the browser: rules from the Latin text and three further sources, three-level computer, guided game with explanations, audio, story and illustrated rules. Italian and English.">
 <title>Tablut</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -273,6 +273,66 @@ h1{font-family:var(--font-display);letter-spacing:.02em}
   #board{height:calc(100vh - 158px);width:auto;max-width:100%;aspect-ratio:1/1}
 }
 .rcols ol{margin:0;padding-left:1.4em;display:grid;gap:5px}
+/* ---- tutorial guidato ---- */
+.cvc{position:fixed;inset:0;z-index:50;background:rgba(8,11,15,.76);display:grid;place-items:center;padding:max(10px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
+.cvc-box{width:min(1180px,100%);max-height:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:12px;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;overflow:hidden}
+.cvc-box:focus{outline:none}
+.cvc-head{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--line)}
+.cvc-head h2{font-size:22px}
+.cvc-tabs{display:flex;gap:8px;padding:8px 18px 0;border-bottom:1px solid var(--line)}
+.cvc-tabs button{font:700 16px var(--font-body);padding:8px 14px;border:1.5px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;background:var(--surface);color:var(--fg);cursor:pointer}
+.cvc-tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.cvc-main{overflow-y:auto;padding:14px 18px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-content:start}
+.cvc-bw{display:flex;flex-direction:column;gap:10px;min-width:0}
+#cvcBoard{width:100%;height:auto;max-height:62vh;aspect-ratio:1/1;display:block;margin:0 auto}
+.cvc-bubble{position:relative;background:var(--surface);border:2px solid var(--fg);border-radius:12px;padding:10px 14px;font-size:17px;line-height:1.35;max-width:100%}
+.cvc-bubble::before{content:"";position:absolute;top:-9px;left:28px;width:14px;height:14px;background:var(--surface);border-left:2px solid var(--fg);border-top:2px solid var(--fg);transform:rotate(45deg)}
+.cvc-bubble.pop{animation:cvcpop .32s ease-out}
+@keyframes cvcpop{0%{transform:translateY(8px) scale(.97);opacity:.2}100%{transform:none;opacity:1}}
+.cvc-bubble p{margin:0 0 6px}.cvc-bubble ul{margin:0 0 4px;padding-left:20px}.cvc-bubble li{margin:2px 0}
+.cvc-bubble h3{font:400 21px var(--font-display);margin:0 0 4px}
+.cvc-bh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.cvc-bp{display:inline-block;padding:1px 9px;border-radius:999px;font-weight:700;font-size:15px;border:1.5px solid var(--line)}
+.cvc-bp.p0{background:var(--p0);color:#fff;border-color:var(--p0)}.cvc-bp.p1{background:var(--p1);color:#2a2210;border-color:var(--p1)}
+.cvc-alt{color:var(--muted);font-size:16px}
+.cvc-rs{font:600 14px var(--font-mono);color:var(--muted);margin:0 0 6px}
+.cvc-side{display:grid;gap:12px;align-content:start;min-width:0}
+.cvc-sel{display:grid;gap:4px}.cvc-sel span{font-weight:700}
+.cvc-sel select{font:500 17px var(--font-body);padding:8px;border:1.5px solid var(--fg);border-radius:8px;background:var(--surface);color:var(--fg)}
+.cvc-les h4{margin:8px 0 4px;font:700 15px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cvc-les ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.cvc-les button{width:100%;text-align:left;font:500 16px var(--font-body);padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);cursor:pointer}
+.cvc-les button[aria-current="true"]{border-color:var(--fg);background:var(--fg);color:var(--bg)}
+.cvc-les small{display:block;font:500 12px var(--font-mono);opacity:.75}
+.cvc-ph p{margin:4px 0 0;font-size:16px}
+.cvc-bar{height:14px;border-radius:7px;background:var(--p1);overflow:hidden;border:1.5px solid var(--fg);margin:6px 0 2px}
+.cvc-bar i{display:block;height:100%;background:var(--p0);transition:width .4s}
+.cvc-bl{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+.cvc-ev small{color:var(--muted)}
+.cvc-cnt{font-size:16px}
+.cvc-log{margin:0;padding:0 0 0 0;list-style:none;max-height:180px;overflow-y:auto;font:500 14px var(--font-mono);border-top:1px solid var(--line)}
+.cvc-log li{padding:3px 2px;border-bottom:1px solid var(--line)}.cvc-log li[aria-current]{background:var(--surface);font-weight:700}
+.cvc-lr{font-family:var(--font-body);color:var(--muted);font-size:14px}
+.cvc-ctl{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;padding:10px 18px;border-top:1px solid var(--line)}
+.cvc-ctl .btn{padding:8px 14px;min-height:40px}
+.cvc-ctl .seg span{padding:7px 11px}
+@media (min-width:900px){
+  .cvc-main{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)}
+  #cvcBoard{max-height:58vh}
+  .cvc-log{max-height:26vh}
+}
+@media (max-width:560px){.cvc-head h2{font-size:19px}.cvc-bubble{font-size:16px}}
+.rtab-scroll{overflow-x:auto}
+.rtab{border-collapse:collapse;min-width:640px;font-size:15px}
+.rtab th,.rtab td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.rtab thead th{background:var(--surface)}
+.rcols{display:grid;gap:16px;margin-top:12px}
+@media (min-width:900px){.rcols{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cx.nocx,svg.nocx .cx{display:none}
+.rdesc{margin:6px 0 0;font-size:15px;color:var(--muted)}
+
+.rules,.rextra,.rcols,.rtab-scroll{min-width:0;max-width:100%}
+.rtab-scroll{overflow-x:auto}
 
 .lang{display:inline-flex;border:1.5px solid var(--fg);border-radius:8px;overflow:hidden}
 .lang button{font:700 14px var(--font-mono);letter-spacing:.06em;padding:0 12px;min-height:44px;background:transparent;color:var(--fg);border:0;cursor:pointer}
@@ -283,21 +343,21 @@ h1{font-family:var(--font-display);letter-spacing:.02em}
 </head>
 <body>
 
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="gwood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dba46a"/><stop offset=".5" stop-color="#cf9358"/><stop offset="1" stop-color="#bf8149"/></linearGradient>
     <linearGradient id="gframe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a36c"/><stop offset="1" stop-color="#c58a50"/></linearGradient>
     <radialGradient id="gatk" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#c85a3a"/><stop offset=".55" stop-color="#8f2f1b"/><stop offset="1" stop-color="#4f160b"/></radialGradient>
     <radialGradient id="gdef" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#fbf4dc"/><stop offset=".6" stop-color="#d9ca9a"/><stop offset="1" stop-color="#9e8c5a"/></radialGradient>
+    <pattern id="gcamp" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="14" height="14" fill="rgba(60,34,16,.30)"/><path d="M0 0V14" stroke="rgba(30,16,6,.5)" stroke-width="4"/></pattern>
     <radialGradient id="gburn" cx=".5" cy=".5" r=".72"><stop offset=".5" stop-color="#7a3a14" stop-opacity=".55"/><stop offset="1" stop-color="#7a3a14" stop-opacity="0"/></radialGradient>
   </defs>
 </svg>
 <main class="wrap">
   <header class="top">
     <h1>Tablut</h1>
-    <p class="sub"><span class="ver">v1.0</span> · Il gioco del re e dei suoi difensori: nove per nove case, venticinque pezzi. L'hnefatafl descritto da Linneo in Lapponia nel 1732.</p>
-    <div class="hbtns"><div class="lang" id="langSeg" role="group" aria-label="Lingua / Language"><button type="button" data-lang="it" aria-pressed="true">IT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button type="button" class="btn alt" id="storyBtn">Avvia la storia</button><button type="button" class="btn alt" id="tutBtn">Regole illustrate</button></div>
+    <p class="sub"><span class="ver">v1.1</span> · Il gioco del re e dei suoi difensori: nove per nove case, venticinque pezzi. L'hnefatafl descritto da Linneo in Lapponia nel 1732.</p>
+    <div class="hbtns"><div class="lang" id="langSeg" role="group" aria-label="Lingua / Language"><button type="button" data-lang="it" aria-pressed="true">IT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button type="button" class="btn alt" id="storyBtn">Avvia la storia</button><button type="button" class="btn alt" id="tutBtn">Regole illustrate</button><button type="button" class="btn alt" id="cvcBtn">Tutorial: partita guidata</button></div>
   </header>
 
   <div class="stage">
@@ -324,6 +384,14 @@ h1{font-family:var(--font-display);letter-spacing:.02em}
     <div>
       <h2>Impostazioni</h2>
       <form id="opts" autocomplete="off">
+        <fieldset id="fsRules"><legend>Regole</legend>
+          <div class="seg wide">
+            <label><input type="radio" name="rset" value="linneo" checked><span>Linneo (standard)</span></label>
+            <label><input type="radio" name="rset" value="bologna"><span>Cittadelle (Bologna)</span></label>
+            <label><input type="radio" name="rset" value="pilarski"><span>Angoli (Pilarski)</span></label>
+            <label><input type="radio" name="rset" value="bannerlord"><span>Bannerlord (semplificato)</span></label>
+          </div>
+          <p class="rdesc" id="rdesc" data-dyn></p></fieldset>
         <fieldset><legend>Avversario</legend>
           <div class="seg">
             <label><input type="radio" name="opp" value="cpu" checked><span>Computer</span></label>
@@ -344,7 +412,7 @@ h1{font-family:var(--font-display);letter-spacing:.02em}
         <fieldset><legend>Tavola</legend>
           <label class="chk"><input type="checkbox" id="optCoord" checked><span>Mostra le coordinate (a-i, 1-9)</span></label>
           <label class="chk"><input type="checkbox" id="optDots" checked><span>Mostra le destinazioni possibili</span></label>
-          <label class="chk"><input type="checkbox" id="optLane" checked><span>Segnala le vie libere del re<small>Le case da cui il re può raggiungere il bordo in una mossa sono evidenziate in azzurro.</small></span></label>
+          <label class="chk"><input type="checkbox" id="optLane" checked><span>Segnala le vie libere del re<small>Le case da cui il re può raggiungere una casa di vittoria (bordo o angolo, secondo le regole) in una mossa sono evidenziate in azzurro.</small></span></label>
         </fieldset>
         <fieldset><legend>Audio</legend>
           <label class="chk"><input type="checkbox" id="optSfx" checked><span>Effetti sonori</span></label>
@@ -409,8 +477,86 @@ h1{font-family:var(--font-display);letter-spacing:.02em}
         </ul>
       </div>
     </div>
+
+    <div class="rextra">
+      <h3>Insiemi di regole a confronto</h3>
+      <p>Le regole del testo (Linneo) sono quelle predefinite. Nelle impostazioni si può scegliere un altro insieme, tratto dalle fonti elencate in fondo: la scelta vale dalla partita successiva.</p>
+      <div class="rtab-scroll"><table class="rtab">
+        <thead><tr><th scope="col">Aspetto</th><th scope="col">Linneo</th><th scope="col">Bologna</th><th scope="col">Pilarski</th><th scope="col">Bannerlord</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Il re vince raggiungendo</th><td>una casa qualsiasi del bordo</td><td>una casa del bordo che non sia un angolo né un accampamento</td><td>un angolo</td><td>una casa qualsiasi del bordo</td></tr>
+          <tr><th scope="row">Muovono per primi</th><td>gli attaccanti (convenzione moderna)</td><td>gli attaccanti (scelta nostra: la fonte non lo dice)</td><td>gli attaccanti</td><td>gli attaccanti (inferenza)</td></tr>
+          <tr><th scope="row">Castello</th><td>nessuno vi si ferma; da vuoto si attraversa</td><td>cittadella: non vi si ferma nessuno e non si attraversa</td><td>vi si ferma solo il re; da vuoto si attraversa</td><td>come in Linneo (inferenza)</td></tr>
+          <tr><th scope="row">Accampamenti (le quattro «T»)</th><td>nessun effetto</td><td>cittadelle: vi si muove solo chi parte dallo stesso accampamento</td><td>nessun effetto</td><td>nessun effetto</td></tr>
+          <tr><th scope="row">Angoli</th><td>solo decorativi</td><td>case normali, senza effetto</td><td>vi si ferma solo il re; ostili a entrambe le parti</td><td>solo decorativi</td></tr>
+          <tr><th scope="row">Cattura dei pezzi</th><td>due lati opposti; il castello vuoto è ostile; regola 11</td><td>due lati opposti; nessuna casa è ostile</td><td>due lati opposti; castello e angoli sono sempre ostili</td><td>come in Linneo</td></tr>
+          <tr><th scope="row">Cattura del re</th><td>nel castello quattro attaccanti, accanto al castello tre, altrove due lati opposti</td><td>come in Linneo</td><td>come in Linneo; altrove anche contro un angolo (inferenza)</td><td>due lati opposti ovunque, anche contro il castello vuoto</td></tr>
+          <tr><th scope="row">Patta e fine partita</th><td>ripetizione, impossibilità di muovere, accordo</td><td>ripetizione; chi non può muovere perde</td><td>dopo 100 semimosse; nessuna regola di ripetizione</td><td>come in Linneo (inferenza)</td></tr>
+          <tr><th scope="row">Fonte</th><td>testo fornito dall'autore del progetto (Linneo, 1732)</td><td>De Filippo et al., 2025</td><td>Pilarski (McGill)</td><td>guida di Jubal, forum Exilian, 2020</td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="rcols">
+      <div>
+        <h3>Note sui nuovi insiemi</h3>
+        <ul>
+          <li>Bologna: l'articolo non dice chi muova per primo né se accampamenti e castello siano ostili ai pezzi. Abbiamo scelto che muovano per primi gli attaccanti e che le cittadelle non siano ostili. Le case d'angolo sono case normali: nella figura dell'articolo non sono né «stelle» né accampamenti. Nel castello e accanto al castello il re è catturato con un attaccante su ciascun lato; accanto al castello il lato del castello conta come occupato. Il re partecipa alle catture come gli altri difensori.</li>
+          <li>Pilarski: il testo dice che gli angoli e il castello possono servire a catturare anche quando il re non è nel castello. L'articolo non cita la ripetizione di posizione: vale il limite di 100 mosse (qui contate come semimosse). Il re accanto a un angolo può essere catturato da un solo attaccante: è un'inferenza dalla frase «come qualsiasi altro pezzo».</li>
+          <li>Bannerlord: la guida descrive solo il gioco del videogioco. Dice che il re può uscire da qualsiasi bordo, che basta circondarlo su due lati e che il re può essere catturato contro il castello. Per tutto il resto (chi muove per primo, patta, castello) abbiamo applicato le regole di Linneo e lo dichiariamo come inferenza. La guida dice anche che nel videogioco una situazione di stallo fa perdere: qui lo stallo resta patta.</li>
+        </ul>
+      </div>
+      <div class="rres">
+        <h3>Strategie: cosa abbiamo verificato</h3>
+        <p>Le prove sono state fatte con il motore di questo gioco: partite simulate fra versioni del computer, 20 o 30 partite per cella (indicate come n), con una mossa iniziale casuale e al massimo 200 mezze mosse (100 negli Angoli). Sono campioni piccoli e dicono come si comportano queste strategie contro questo computer, non contro un giocatore umano.</p>
+<h4>1. Le scorciatoie delle fonti: «bordo libero», «bordo sicuro», doppia via</h4>
+<div class="rtab-scroll"><table class="rtab"><thead><tr><th scope="col">Insieme di regole</th><th scope="col">«Bordo libero»: segnalate / vinte in due mosse</th><th scope="col">Doppia via: casi esaminati</th><th scope="col">Doppia via: vittoria forzata alla mossa dopo</th><th scope="col">Doppia via: eccezioni</th></tr></thead><tbody><tr><th scope="row">Linneo</th><td>55 / 55 (100%)</td><td>2551</td><td>2076 / 2551 (81%)</td><td>475 su 2551: tutte catture del re</td></tr><tr><th scope="row">Cittadelle (Bologna)</th><td>30 / 30 (100%)</td><td>393</td><td>313 / 393 (80%)</td><td>80 su 393: tutte catture del re</td></tr><tr><th scope="row">Angoli (Pilarski)</th><td>205 / 213 (96%)</td><td>66</td><td>60 / 66 (91%)</td><td>6 su 66: tutte catture del re</td></tr><tr><th scope="row">Bannerlord</th><td>39 / 39 (100%)</td><td>2036</td><td>1547 / 2036 (76%)</td><td>489 su 2036: tutte catture del re</td></tr></tbody></table></div>
+<ul class="rl"><li>Bordo libero: se un lato del bordo è senza pezzi e il re può raggiungerlo, il re vince in due mosse. Il controllo esatto lo conferma in tutte le posizioni segnalate negli insiemi con fuga sul bordo; negli Angoli, dove il re deve poi arrivare all'angolo, la conferma è del 96%.</li><li>Doppia via: se il re può andare su una casa da cui partono due vie libere, gli attaccanti non possono chiuderle entrambe con una mossa. Le eccezioni che abbiamo trovato sono tutte catture immediate del re sulla casa di arrivo, e nessun altro caso: la regola della fonte è corretta con questa precisazione e sbagliata senza (dal 9% al 24% dei casi esaminati; negli Angoli i casi sono solo 66).</li><li>Bordo sicuro (solo Angoli): su 246 posizioni segnalate, 186 sono vittorie in due mosse; delle altre 60, 35 sono vittorie in tre mosse. Quindi non è una garanzia, ma un buon indizio (76%).</li></ul>
+<h4>2. Le strategie in partita</h4>
+<div class="rtab-scroll"><table class="rtab"><thead><tr><th scope="col">Prova (livello Medio)</th><th scope="col">Linneo</th><th scope="col">Cittadelle (Bologna)</th><th scope="col">Angoli (Pilarski)</th><th scope="col">Bannerlord</th></tr></thead><tbody><tr><th scope="row">Riferimento: Medio contro Medio</th><td>12 – 9 – 9 (30)</td><td>16 – 1 – 3 (20)</td><td>9 – 13 – 8 (30)</td><td>16 – 1 – 3 (20)</td></tr><tr><th scope="row">Difensore con la sola «incudine e martello» (mai il re)</th><td>21 – 0 – 9 (30)</td><td>29 – 0 – 1 (30)</td><td>17 – 0 – 13 (30)</td><td>24 – 0 – 6 (30)</td></tr><tr><th scope="row">Difensore con la valutazione di Pilarski</th><td>4 – 23 – 3 (30)</td><td>13 – 1 – 6 (20)</td><td>1 – 3 – 16 (20)</td><td>3 – 7 – 10 (20)</td></tr><tr><th scope="row">Attaccante con la valutazione di Pilarski</th><td>9 – 5 – 6 (20)</td><td>16 – 2 – 2 (20)</td><td>15 – 4 – 1 (20)</td><td>13 – 3 – 4 (20)</td></tr></tbody></table></div>
+<p>Ogni cella dà, nell'ordine, le vittorie degli attaccanti, quelle dei difensori e le patte o partite non finite entro il limite; tra parentesi il numero di partite (n).</p>
+<ul class="rl"><li>«Incudine e martello» (guida Exilian): giocata alla lettera, cioè muovendo solo i quattro pezzi esterni lungo la loro riga o colonna e tenendo fermi l'anello interno e il re, non vince mai contro il nostro attaccante Medio (0 vittorie su 30 in ogni insieme) e perde da 17 a 29 partite su 30. Da sola è una formazione difensiva: il re non esce. La fonte la descrive contro l'attaccante debole del videogioco; contro questo computer non funziona. Non abbiamo provato la seconda fase che la guida descrive (muovere l'anello interno dopo 3 o 4 catture).</li><li>Premi nella valutazione per l'anello interno, per i due lati protetti del re e per il re fermo accanto al castello: non migliorano la forza e in genere la peggiorano (difensori Medi contro attaccante Facile: 29 vittorie su 40 senza premi, 22 con; contro Difficile 19 contro 10; Cittadelle contro Facile 36 contro 28).</li><li>Valutazione di Pilarski (pezzi catturati ±10, catturabili ±5, via libera del re +5, re nel castello +1, re catturabile −1000): usata dai difensori migliora la forza in Linneo (23 vittorie su 30 contro 9; gli attaccanti passano da 12 vittorie a 4) e in Bannerlord (7 contro 1); in Cittadelle non cambia nulla (1 contro 1) e negli Angoli produce soprattutto patte (16 su 20) senza sconfitte pesanti. Usata dagli attaccanti non dà un vantaggio chiaro.</li><li>Questa valutazione è ora usata dal computer quando gioca i difensori ai livelli Medio e Difficile in Linneo e in Bannerlord. Misura prima e dopo, livello Difficile (profondità 4, 30 000 nodi, n=20): in Linneo i difensori vincono 18 partite contro 9 (attaccanti: 0 vittorie in entrambi i casi); in Bannerlord 18 contro 7 (attaccanti: 0 contro 4).</li><li>Bilanciamento: con questo computer le Cittadelle e Bannerlord favoriscono nettamente gli attaccanti (16 vittorie contro 1), Linneo è quasi in equilibrio (12 contro 9) e gli Angoli, con il limite di 100 mosse, favoriscono i difensori (13 contro 9) con molte patte.</li><li>Limiti: sono partite fra versioni dello stesso computer, con campioni piccoli e un solo avversario per prova. Non misurano la forza contro un giocatore umano e i numeri di insiemi diversi non sono confrontabili in modo assoluto.</li></ul>
+
+      </div>
+      <div>
+        <h3>Fonti aggiunte</h3>
+        <ul>
+          <li>S. Pilarski, «Designing an Effective Tablut Artificial Intelligence», McGill University.</li>
+          <li>A. De Filippo, A. Galassi, A. Soriani, G. Trisolini, F. Baldo, F. Chesani, P. Mello, M. Milano (2025), «Improving the Teaching of Artificial Intelligence Through Project-Based Learning on a Board Game», Intelligenza Artificiale 19(1), 17-29, doi:10.1177/17248035241297789.</li>
+          <li>Jubal, «The Tablut Grandmaster's Guide (Bannerlord)», forum Exilian, 31 maggio 2020, exilian.co.uk/forum/index.php?topic=6188.0.</li>
+        </ul>
+      </div>
+    </div>
   </details>
 </main>
+
+<div class="cvc" id="cvc" role="dialog" aria-modal="true" aria-labelledby="cvcTitle" hidden>
+  <div class="cvc-box" id="cvcBox" tabindex="-1">
+    <div class="cvc-head">
+      <div><span class="eyebrow" id="cvcEye" data-dyn></span><h2 id="cvcTitle">Tutorial: partita guidata</h2></div>
+      <button type="button" class="btn alt" id="cvcClose">Chiudi</button>
+    </div>
+    <div class="cvc-tabs" role="tablist" aria-label="Sezioni del tutorial">
+      <button type="button" role="tab" id="cvcTabDemo" data-tab="demo" aria-selected="true">Partita dimostrativa</button>
+      <button type="button" role="tab" id="cvcTabLes" data-tab="les" aria-selected="false">Lezioni</button>
+    </div>
+    <div class="cvc-main">
+      <div class="cvc-bw" id="cvcBw">
+        <svg id="cvcBoard" role="group" aria-label="Tavola del tutorial" viewBox="0 0 1200 1200"></svg>
+        <div class="cvc-bubble" id="cvcBubble" role="status" aria-live="polite" hidden></div>
+      </div>
+      <aside class="cvc-side">
+        <div id="cvcSetup" class="cvc-setup"></div>
+        <div id="cvcInfo" class="cvc-info" aria-live="off"></div>
+        <ol id="cvcLog" class="cvc-log" aria-label="Mosse commentate"></ol>
+      </aside>
+    </div>
+    <div class="cvc-ctl">
+      <button type="button" class="btn alt" id="cvcRestart" data-dyn>Ricomincia</button>
+      <button type="button" class="btn alt" id="cvcPrev" data-dyn>Mossa precedente</button>
+      <button type="button" class="btn" id="cvcStep" data-dyn>Mossa successiva</button>
+      <button type="button" class="btn alt" id="cvcBub" data-dyn>Nascondi i fumetti</button>
+    </div>
+  </div>
+</div>
 
 <div class="story" id="story" role="dialog" aria-modal="true" aria-label="La storia del tablut" hidden>
   <canvas id="stCv" aria-hidden="true"></canvas>
@@ -457,37 +603,72 @@ document.documentElement.lang=LANG;
 </script>
 <script>
 /*ENGINE_START*/
-/* Tablut (regole ricostruite dal testo latino di Linneo). Tavola 9x9, indice = riga*9 + colonna, riga 0 in alto.
-   Pezzi: 1 attaccante, 2 difensore, 3 re. Lato 0 = attaccanti (muovono per primi), lato 1 = difensori.
-   Notazione: colonne a-i da sinistra, righe 1-9 dal basso (la riga 0 dell'array è la 9). */
+/* Tablut. Tavola 9x9, indice = riga*9 + colonna, riga 0 in alto.
+   Pezzi: 1 attaccante, 2 difensore, 3 re. Lato 0 = attaccanti, lato 1 = difensori.
+   Notazione: colonne a-i da sinistra, righe 1-9 dal basso (la riga 0 dell'array è la 9).
+   Le regole sono un oggetto (RS): ogni stato porta l'id (st.rid); i punti d'ingresso chiamano useRules(st.rid). */
 if (typeof _ === 'undefined') { var _ = (it) => it; }
 const NAMES = [_('Attaccanti', 'Attackers'), _('Difensori', 'Defenders')];
 const CASTLE = 40;
 const NB = [];
 for (let i = 0; i < 81; i++) { const r = (i / 9) | 0, c = i % 9; NB.push([r > 0 ? i - 9 : -1, r < 8 ? i + 9 : -1, c > 0 ? i - 1 : -1, c < 8 ? i + 1 : -1]); }
 const isEdge = i => { const r = (i / 9) | 0, c = i % 9; return r === 0 || r === 8 || c === 0 || c === 8; };
+const CORNERS = [0, 8, 72, 80];
 const sq = i => 'abcdefghi'[i % 9] + (9 - ((i / 9) | 0));
 const idx = s => (9 - +s[1]) * 9 + 'abcdefghi'.indexOf(s[0]);
+const START_ATT = ['d9', 'e9', 'f9', 'e8', 'd1', 'e1', 'f1', 'e2', 'a4', 'a5', 'a6', 'b5', 'i4', 'i5', 'i6', 'h5'];
+const START_DEF = ['e7', 'e6', 'e4', 'e3', 'c5', 'd5', 'f5', 'g5'];
+const INNER = ['e6', 'e4', 'd5', 'f5'].map(idx), OUTER = ['e7', 'e3', 'c5', 'g5'].map(idx);
+
+/* ---------- insiemi di regole ---------- */
+const RS = {
+  linneo:     { id: 'linneo',     win: 'edge',   cit: false, nsC: true,  nsCK: true,  nsCor: false, host: 'ec',  kcap: 'std', r11: true,  rep: true,  maxPly: 0,   stale: 'draw' },
+  bologna:    { id: 'bologna',    win: 'star',   cit: true,  nsC: false, nsCK: false, nsCor: false, host: '',    kcap: 'std', r11: false, rep: true,  maxPly: 0,   stale: 'lose' },
+  pilarski:   { id: 'pilarski',   win: 'corner', cit: false, nsC: true,  nsCK: false, nsCor: true,  host: 'all', kcap: 'std', r11: false, rep: false, maxPly: 100, stale: 'draw' },
+  bannerlord: { id: 'bannerlord', win: 'edge',   cit: false, nsC: true,  nsCK: true,  nsCor: false, host: 'ec',  kcap: 'two', r11: true,  rep: true,  maxPly: 0,   stale: 'draw' }
+};
+const RULE_IDS = ['linneo', 'bologna', 'pilarski', 'bannerlord'];
+let R = RS.linneo;
+(function () {
+  const camp = new Int8Array(81); START_ATT.forEach(s => { const i = idx(s), r = (i / 9) | 0, c = i % 9; camp[i] = r <= 1 ? 1 : r >= 7 ? 2 : c <= 1 ? 3 : 4; });
+  for (const k in RS) {
+    const o = RS[k], win = new Uint8Array(81), ns = new Uint8Array(81), nsK = new Uint8Array(81), cor = new Uint8Array(81), cit = new Int8Array(81);
+    CORNERS.forEach(i => { cor[i] = 1; });
+    for (let i = 0; i < 81; i++) {
+      if (o.win === 'edge') win[i] = isEdge(i) ? 1 : 0;
+      else if (o.win === 'star') win[i] = (isEdge(i) && !camp[i] && !cor[i]) ? 1 : 0;
+      else win[i] = cor[i];
+      if (o.cit) cit[i] = camp[i] ? camp[i] : i === CASTLE ? 5 : 0;
+    }
+    if (o.nsC) ns[CASTLE] = 1; if (o.nsCK) nsK[CASTLE] = 1;
+    if (o.nsCor) CORNERS.forEach(i => { ns[i] = 1; nsK[i] = 0; });
+    o.winA = win; o.ns = ns; o.nsK = nsK; o.corA = cor; o.citA = o.cit ? cit : null; o.campA = camp;
+  }
+})();
+function useRules(id) { const r = typeof id === 'string' ? RS[id] : id; if (r && r !== R) R = r; return R; }
 
 function initBoard() {
   const b = new Int8Array(81), put = (v, l) => l.forEach(s => { b[idx(s)] = v; });
-  put(1, ['d9', 'e9', 'f9', 'e8', 'd1', 'e1', 'f1', 'e2', 'a4', 'a5', 'a6', 'b5', 'i4', 'i5', 'i6', 'h5']);
-  put(2, ['e7', 'e6', 'e4', 'e3', 'c5', 'd5', 'f5', 'g5']);
-  put(3, ['e5']);
+  put(1, START_ATT); put(2, START_DEF); put(3, ['e5']);
   return b;
 }
 const countOf = (b, v) => { let n = 0; for (let i = 0; i < 81; i++) if (b[i] === v) n++; return n; };
 const kingPos = b => { for (let i = 0; i < 81; i++) if (b[i] === 3) return i; return -1; };
 
-/* regole 8-10: cattura del re */
+/* casa ostile a entrambe le parti per le catture (castello vuoto, oppure castello e angoli sempre) */
+const hostSq = (b, o) => R.host === 'ec' ? (o === CASTLE && b[o] === 0) : R.host === 'all' ? (o === CASTLE || R.corA[o] === 1) : false;
+const kHost = (b, o) => b[o] === 1 || hostSq(b, o);
+/* cattura del re */
 function kingCaptured(b, k) {
   const n = NB[k];
-  if (k === CASTLE) return b[n[0]] === 1 && b[n[1]] === 1 && b[n[2]] === 1 && b[n[3]] === 1;
-  let adj = false; for (let d = 0; d < 4; d++) if (n[d] === CASTLE) adj = true;
-  if (adj) { for (let d = 0; d < 4; d++) if (n[d] !== CASTLE && b[n[d]] !== 1) return false; return true; }
-  return (n[2] >= 0 && n[3] >= 0 && b[n[2]] === 1 && b[n[3]] === 1) || (n[0] >= 0 && n[1] >= 0 && b[n[0]] === 1 && b[n[1]] === 1);
+  if (R.kcap === 'std') {
+    if (k === CASTLE) return b[n[0]] === 1 && b[n[1]] === 1 && b[n[2]] === 1 && b[n[3]] === 1;
+    let adj = false; for (let d = 0; d < 4; d++) if (n[d] === CASTLE) adj = true;
+    if (adj) { for (let d = 0; d < 4; d++) if (n[d] !== CASTLE && b[n[d]] !== 1) return false; return true; }
+  }
+  return (n[2] >= 0 && n[3] >= 0 && kHost(b, n[2]) && kHost(b, n[3])) || (n[0] >= 0 && n[1] >= 0 && kHost(b, n[0]) && kHost(b, n[1]));
 }
-/* catture provocate dal pezzo pc appena arrivato in t (regole 6, 7, 8-11) */
+/* catture provocate dal pezzo pc appena arrivato in t */
 function capturesAt(b, t, pc) {
   const att = pc === 1, out = [];
   for (let d = 0; d < 4; d++) {
@@ -498,23 +679,28 @@ function capturesAt(b, t, pc) {
     const o = NB[n][d]; if (o < 0) continue;
     const w = b[o]; let hostile;
     if (att) {
-      hostile = w === 1 || (o === CASTLE && w === 0);
-      if (!hostile && o === CASTLE && w === 3) { /* regola 11 */
+      hostile = w === 1 || hostSq(b, o);
+      if (!hostile && R.r11 && o === CASTLE && w === 3) { /* regola 11 */
         hostile = true; for (let e = 0; e < 4; e++) { const q = NB[CASTLE][e]; if (q !== n && b[q] !== 1) hostile = false; }
       }
-    } else hostile = w === 2 || w === 3 || (o === CASTLE && w === 0);
+    } else hostile = w === 2 || w === 3 || hostSq(b, o);
     if (hostile) out.push(n);
   }
   return out;
 }
-/* mosse come interi f*81+t: movimento da torre, senza saltare né atterrare su pezzi, senza atterrare sul castello (attraversarlo da vuoto è consentito) */
+/* mosse come interi f*81+t: movimento da torre; nessuna sosta sulle case vietate; con le cittadelle (Bologna) solo chi parte dalla stessa cittadella può attraversarla o fermarvisi */
 function genMoves(b, side) {
-  const ms = [];
+  const ms = [], cit = R.citA, ns = R.ns, nsK = R.nsK;
   for (let i = 0; i < 81; i++) {
     const v = b[i]; if (!v || (v === 1 ? 0 : 1) !== side) continue;
+    const g0 = cit ? cit[i] : 0, nn = v === 3 ? nsK : ns;
     for (let d = 0; d < 4; d++) {
       let j = NB[i][d];
-      while (j >= 0 && b[j] === 0) { if (j !== CASTLE) ms.push(i * 81 + j); j = NB[j][d]; }
+      while (j >= 0 && b[j] === 0) {
+        if (cit) { const g = cit[j]; if (g && g !== g0) break; }
+        if (!nn[j]) ms.push(i * 81 + j);
+        j = NB[j][d];
+      }
     }
   }
   return ms;
@@ -531,26 +717,49 @@ function unmake(b, u) {
   for (let k = 0; k < u.cp.length; k += 2) b[u.cp[k]] = u.cp[k + 1];
 }
 const capsOf = u => { const a = []; for (let k = 0; k < u.cp.length; k += 2) a.push({ i: u.cp[k], v: u.cp[k + 1] }); return a; };
-/* vie libere del re verso il bordo (si può passare dal castello vuoto) */
+/* vie libere del re verso una casa di vittoria (si può passare dal castello vuoto) */
+function kingRays(b, k) {
+  if (k == null) k = kingPos(b); const out = []; if (k < 0) return out;
+  const cit = R.citA, g0 = cit ? cit[k] : 0;
+  for (let d = 0; d < 4; d++) {
+    let j = NB[k][d], run = [];
+    while (j >= 0 && b[j] === 0) {
+      if (cit) { const g = cit[j]; if (g && g !== g0) break; }
+      run.push(j);
+      if (R.winA[j]) { out.push(run); break; }
+      j = NB[j][d];
+    }
+  }
+  return out;
+}
 function kingLines(b, k) {
   if (k == null) k = kingPos(b); if (k < 0) return 0;
-  let n = 0;
-  for (let d = 0; d < 4; d++) { let j = NB[k][d], ok = j >= 0; while (j >= 0) { if (b[j] !== 0) { ok = false; break; } j = NB[j][d]; } if (ok) n++; }
+  const cit = R.citA, g0 = cit ? cit[k] : 0; let n = 0;
+  for (let d = 0; d < 4; d++) {
+    let j = NB[k][d];
+    while (j >= 0 && b[j] === 0) {
+      if (cit) { const g = cit[j]; if (g && g !== g0) break; }
+      if (R.winA[j]) { n++; break; }
+      j = NB[j][d];
+    }
+  }
   return n;
 }
+const kingLineSquares = b => { const o = []; kingRays(b).forEach(r => r.forEach(x => { if (x !== CASTLE) o.push(x); })); return o; };
 
 function posKey(b, turn) { let s = turn ? 'D' : 'A'; for (let i = 0; i < 81; i++) s += b[i]; return s; }
 function newState(o) {
-  o = o || {};
-  const st = { b: initBoard(), turn: 0, phase: 'move', winner: null, over: null, hist: {}, ply: 0, last: null, moves: [], caps: [0, 0] };
+  o = o || {}; const rid = o.rules || 'linneo'; useRules(rid);
+  const st = { rid, b: initBoard(), turn: 0, phase: 'move', winner: null, over: null, hist: {}, ply: 0, last: null, moves: [], caps: [0, 0] };
   const k = posKey(st.b, 0); st.hist[k] = 1;
   st.moves = legalMoves(st);
   return st;
 }
 function cloneState(st) {
-  return { b: Int8Array.from(st.b), turn: st.turn, phase: st.phase, winner: st.winner, over: st.over, hist: Object.assign({}, st.hist), ply: st.ply, last: st.last, moves: st.moves, caps: st.caps.slice() };
+  return { rid: st.rid, b: Int8Array.from(st.b), turn: st.turn, phase: st.phase, winner: st.winner, over: st.over, hist: Object.assign({}, st.hist), ply: st.ply, last: st.last, moves: st.moves, caps: st.caps.slice() };
 }
 function legalMoves(st) {
+  useRules(st.rid);
   const ms = genMoves(st.b, st.turn), out = [];
   for (const m of ms) {
     const f = (m / 81) | 0, t = m % 81, pc = st.b[f];
@@ -561,52 +770,155 @@ function legalMoves(st) {
 }
 /* applica la mossa {f,t}; restituisce gli eventi di cronaca e imposta st.fx */
 function applyMove(st, mv) {
+  useRules(st.rid);
   const p = st.turn, m = mv.f * 81 + mv.t, u = make(st.b, m), cs = capsOf(u);
   st.ply++; st.last = { f: mv.f, t: mv.t };
-  const mine = [0, 0]; cs.forEach(c => { st.caps[c.v === 1 ? 0 : 1]++; });
+  cs.forEach(c => { st.caps[c.v === 1 ? 0 : 1]++; });
   st.fx = { p, f: mv.f, t: mv.t, pc: u.pc, caps: cs };
   const ev = [];
   let t = sq(mv.f) + '–' + sq(mv.t);
   if (cs.length) t += ' ×' + cs.map(c => sq(c.i)).join(' ×');
   ev.push({ p, msg: t, n: Math.ceil(st.ply / 2), cap: cs.length });
   st.turn = 1 - p;
-  if (u.pc === 3 && isEdge(mv.t)) { st.phase = 'over'; st.winner = 1; st.over = 'edge'; }
+  if (u.pc === 3 && R.winA[mv.t]) { st.phase = 'over'; st.winner = 1; st.over = R.win === 'corner' ? 'corner' : 'edge'; }
   else if (cs.some(c => c.v === 3)) { st.phase = 'over'; st.winner = 0; st.over = 'king'; }
   if (st.phase !== 'over') {
-    const k = posKey(st.b, st.turn); st.hist[k] = (st.hist[k] || 0) + 1;
-    if (st.hist[k] >= 2) { st.phase = 'over'; st.winner = 'draw'; st.over = 'repeat'; }
-    else {
+    if (R.rep) {
+      const k = posKey(st.b, st.turn); st.hist[k] = (st.hist[k] || 0) + 1;
+      if (st.hist[k] >= 2) { st.phase = 'over'; st.winner = 'draw'; st.over = 'repeat'; }
+    }
+    if (st.phase !== 'over' && R.maxPly && st.ply >= R.maxPly) { st.phase = 'over'; st.winner = 'draw'; st.over = 'limit'; }
+    if (st.phase !== 'over') {
       st.moves = legalMoves(st);
-      if (!st.moves.length) { st.phase = 'over'; st.winner = 'draw'; st.over = 'stalemate'; }
+      if (!st.moves.length) {
+        st.phase = 'over';
+        if (R.stale === 'lose') { st.winner = 1 - st.turn; st.over = 'nomove'; } else { st.winner = 'draw'; st.over = 'stalemate'; }
+      }
     }
   }
   if (st.phase === 'over') {
     st.moves = [];
     if (st.over === 'edge') ev.push({ p: 1, msg: _('Il re raggiunge il bordo: vincono i Difensori.', 'The king reaches the edge: the Defenders win.') });
+    else if (st.over === 'corner') ev.push({ p: 1, msg: _('Il re raggiunge un angolo: vincono i Difensori.', 'The king reaches a corner: the Defenders win.') });
     else if (st.over === 'king') ev.push({ p: 0, msg: _('Il re è catturato: vincono gli Attaccanti.', 'The king is captured: the Attackers win.') });
     else if (st.over === 'repeat') ev.push({ p: null, msg: _('Posizione ripetuta: la partita è patta.', 'Position repeated: the game is drawn.') });
+    else if (st.over === 'limit') ev.push({ p: null, msg: _('Raggiunto il limite di 100 mosse: la partita è patta.', 'The 100-move limit is reached: the game is drawn.') });
+    else if (st.over === 'nomove') ev.push({ p: st.winner, msg: _(NAMES[st.turn] + ' non possono muovere: perdono la partita.', NAMES[st.turn] + ' cannot move: they lose the game.') });
     else ev.push({ p: null, msg: _(NAMES[st.turn] + ' non possono muovere: la partita è patta.', NAMES[st.turn] + ' cannot move: the game is drawn.') });
   }
   return ev;
 }
+/* ---------- analisi: rilevatori e ricerca esatta ---------- */
+/* destinazioni del re (mossa immediata) da cui partono >=2 vie, o 1 via */
+function kingDests(b, minLines) {
+  const k = kingPos(b), out = []; if (k < 0) return out;
+  const cit = R.citA, g0 = cit ? cit[k] : 0;
+  for (let d = 0; d < 4; d++) {
+    let j = NB[k][d];
+    while (j >= 0 && b[j] === 0) {
+      if (cit) { const g = cit[j]; if (g && g !== g0) break; }
+      if (!R.nsK[j]) { b[k] = 0; b[j] = 3; const l = kingLines(b, j); b[j] = 0; b[k] = 3; if (l >= minLines) out.push({ to: j, lines: l }); }
+      j = NB[j][d];
+    }
+  }
+  return out;
+}
+const hasKingCap = u => { for (let k = 1; k < u.cp.length; k += 2) if (u.cp[k] === 3) return true; return false; };
+/* i difensori vincono per forza entro n proprie mosse? (ricerca esatta; ripetizioni e limiti ignorati) */
+function canWin(b, turn, n, rid) {
+  if (rid) useRules(rid);
+  if (turn === 1) {
+    if (n <= 0) return false;
+    if (kingLines(b) > 0) return true;
+    if (n === 1) return false;
+    const ms = genMoves(b, 1);
+    for (const m of ms) { const u = make(b, m); const w = canWin(b, 0, n - 1); unmake(b, u); if (w) return true; }
+    return false;
+  }
+  const ms = genMoves(b, 0);
+  if (!ms.length) return R.stale === 'lose';
+  for (const m of ms) { const u = make(b, m); let ok; if (hasKingCap(u)) ok = false; else ok = canWin(b, 1, n); unmake(b, u); if (!ok) return false; }
+  return true;
+}
+/* le mosse degli attaccanti catturano il re? (turno degli attaccanti, b invariato) */
+function attackersCanCaptureKing(b) {
+  const ms = genMoves(b, 0);
+  for (const m of ms) { const u = make(b, m); const c = hasKingCap(u); unmake(b, u); if (c) return true; }
+  return false;
+}
+/* pezzi di 'side' catturabili con una mossa dell'altro lato (insieme di caselle; re escluso) */
+function capturable(b, side) {
+  const opp = 1 - side, out = new Set(), ms = genMoves(b, opp);
+  for (const m of ms) { const f = (m / 81) | 0, t = m % 81, pc = b[f]; b[f] = 0; b[t] = pc; const cs = capturesAt(b, t, pc); b[t] = 0; b[f] = pc; cs.forEach(c => { if (b[c] !== 3) out.add(c); }); }
+  return out;
+}
+/* rilevatore «bordo libero» (angoli): un bordo senza alcun pezzo e il re può muovere su una sua casa */
+function clearEdgeH(b) {
+  const k = kingPos(b); if (k < 0) return null;
+  const sides = [[0, 1, 2, 3, 4, 5, 6, 7, 8], [72, 73, 74, 75, 76, 77, 78, 79, 80], [0, 9, 18, 27, 36, 45, 54, 63, 72], [8, 17, 26, 35, 44, 53, 62, 71, 80]];
+  const dests = new Set(); const cit = R.citA, g0 = cit ? cit[k] : 0;
+  for (let d = 0; d < 4; d++) { let j = NB[k][d]; while (j >= 0 && b[j] === 0) { if (cit) { const g = cit[j]; if (g && g !== g0) break; } dests.add(j); j = NB[j][d]; } }
+  for (let s = 0; s < 4; s++) { if (sides[s].every(i => b[i] === 0 || i === k) ) { const hit = sides[s].find(i => i !== k && dests.has(i) && !R.nsK[i]); if (hit != null || sides[s].includes(k)) return { side: s, to: hit }; } }
+  return null;
+}
+/* rilevatore «bordo sicuro» (angoli): il re muove su una casa e da lì un angolo è raggiungibile; le righe perpendicolari ai tratti di bordo da percorrere non hanno attaccanti */
+function safeEdgeH(b) {
+  const k = kingPos(b); if (k < 0 || R.win !== 'corner') return null;
+  const cit = R.citA, g0 = cit ? cit[k] : 0, out = [];
+  const ends = (e) => { /* direzioni lungo il bordo verso un angolo */
+    const r = (e / 9) | 0, c = e % 9, res = [];
+    if (r === 0 || r === 8) { res.push([c, -1, 0, 1]); res.push([8 - c, 1, 0, 1]); } else if (c === 0 || c === 8) { res.push([r, -9, 0, 9]); res.push([8 - r, 9, 0, 9]); }
+    return res;
+  };
+  for (let d = 0; d < 4; d++) {
+    let j = NB[k][d];
+    while (j >= 0 && b[j] === 0) {
+      if (cit) { const g = cit[j]; if (g && g !== g0) break; }
+      if (isEdge(j) && !R.nsK[j]) {
+        const r = (j / 9) | 0, c = j % 9, horiz = r === 0 || r === 8;
+        const dirs = horiz ? [-1, 1] : [-9, 9];
+        for (const st of dirs) {
+          let q = j + st, path = [], ok = true;
+          while (true) { const qr = (q / 9) | 0, qc = q % 9; if (q < 0 || q > 80) { ok = false; break; } if (horiz ? qr !== r : qc !== c) { ok = false; break; } if (b[q] !== 0 && q !== k) { ok = false; break; } if (R.corA[q]) { break; } path.push(q); q += st; }
+          if (!ok || (horiz ? ((q / 9) | 0) !== r : q % 9 !== c)) continue;
+          if (!R.corA[q]) continue;
+          /* perpendicolari: nessun attaccante sulla riga/colonna perpendicolare di j e di ogni casa del tratto */
+          let free = true;
+          [j].concat(path).forEach(x => {
+            const xr = (x / 9) | 0, xc = x % 9;
+            if (horiz) { for (let rr = 0; rr < 9; rr++) if (rr !== r && b[rr * 9 + xc] === 1) free = false; } else { for (let cc = 0; cc < 9; cc++) if (cc !== c && b[xr * 9 + cc] === 1) free = false; }
+          });
+          /* attaccanti sul bordo stesso dall'altra parte del re */
+          if (free) out.push({ to: j, corner: q });
+        }
+      }
+      j = NB[j][d];
+    }
+  }
+  return out.length ? out : null;
+}
 /* ---------- computer ---------- */
-/* valutazione dal punto di vista dei difensori (positiva = meglio per i difensori) */
+const EXP = { anv: 0, kstep: 0, prot: 0, pil: 0 };
 const CORD = (() => { const a = new Uint8Array(81); for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) if (r + c === 3 || r + c === 13 || r - c === 5 || r - c === -5) a[r * 9 + c] = 1; return a; })();
+const EDGE_LINES = [[0, 1, 2, 3, 4, 5, 6, 7, 8], [72, 73, 74, 75, 76, 77, 78, 79, 80], [0, 9, 18, 27, 36, 45, 54, 63, 72], [8, 17, 26, 35, 44, 53, 62, 71, 80]];
+/* valutazione dal punto di vista dei difensori (positiva = meglio per i difensori) */
 function evalPos(b, turn, ply) {
+  if (EXP.pil) return evalPil(b, turn, ply);
   let natt = 0, ndef = 0, kp = -1, cord = 0;
   for (let i = 0; i < 81; i++) { const v = b[i]; if (v === 1) { natt++; cord += CORD[i]; } else if (v === 2) ndef++; else if (v === 3) kp = i; }
   if (kp < 0) return -90000 + ply;
+  const corner = R.win === 'corner';
   const lines = kingLines(b, kp);
   if (lines > 0 && turn === 1) return 90000 - ply;
-  let v = 40 * ndef - 28 * natt - 7 * cord;
+  let v = 40 * ndef - 28 * natt - (corner ? 13 : 7) * cord;
   if (lines >= 2) v += 20000; else if (lines === 1) v += 320;
-  /* mobilità del re e minacce a due mosse (strategia: file e traverse aperte) */
   let mob = 0, t1 = 0, t2 = 0;
   const kr = (kp / 9) | 0, kc = kp % 9;
   for (let d = 0; d < 4; d++) {
     let j = NB[kp][d];
     while (j >= 0 && b[j] === 0) {
-      if (j !== CASTLE) {
+      if (R.citA) { const g = R.citA[j]; if (g && g !== R.citA[kp]) break; }
+      if (!R.nsK[j]) {
         mob++;
         b[kp] = 0; const l = kingLines(b, j); b[kp] = 3;
         if (l >= 2) t2++; else if (l === 1) t1++;
@@ -615,23 +927,42 @@ function evalPos(b, turn, ply) {
     }
   }
   v += 4 * mob + 55 * t1 + 210 * t2;
-  const dist = Math.min(kr, 8 - kr, kc, 8 - kc);
-  v -= 9 * dist;
+  if (corner) { let dm = 99; CORNERS.forEach(q => { dm = Math.min(dm, Math.abs(kr - ((q / 9) | 0)) + Math.abs(kc - q % 9)); }); v -= 6 * dm; }
+  else v -= 9 * Math.min(kr, 8 - kr, kc, 8 - kc);
   let adj = 0; for (let d = 0; d < 4; d++) { const q = NB[kp][d]; if (q >= 0 && b[q] === 1) adj++; }
   v -= (kp === CASTLE ? 6 : 20) * adj;
-  /* file e traverse interne senza pezzi */
-  let open = 0;
-  for (let r = 1; r < 8; r++) { let e = true; for (let c = 0; c < 9; c++) if (b[r * 9 + c] !== 0) { e = false; break; } if (e) open++; }
-  for (let c = 1; c < 8; c++) { let e = true; for (let r = 0; r < 9; r++) if (b[r * 9 + c] !== 0) { e = false; break; } if (e) open++; }
-  v += 14 * open;
+  if (corner) {
+    for (let s = 0; s < 4; s++) { let free = true; for (const i of EDGE_LINES[s]) if (b[i] === 1) { free = false; break; } if (free) v += 30; }
+  } else {
+    let open = 0;
+    for (let r = 1; r < 8; r++) { let e = true; for (let c = 0; c < 9; c++) if (b[r * 9 + c] !== 0) { e = false; break; } if (e) open++; }
+    for (let c = 1; c < 8; c++) { let e = true; for (let r = 0; r < 9; r++) if (b[r * 9 + c] !== 0) { e = false; break; } if (e) open++; }
+    v += 14 * open;
+  }
+  if (EXP.anv) { let inn = 0; for (const q of INNER) if (b[q] === 2) inn++; v += EXP.anv * inn; }
+  if (EXP.kstep) { for (let d = 0; d < 4; d++) if (NB[CASTLE][d] === kp && lines === 0) v -= EXP.kstep; }
+  if (EXP.prot) { let sides = 0, hasH = false, hasV = false; for (let d = 0; d < 4; d++) { const q = NB[kp][d]; if (q >= 0 && b[q] === 2) { sides++; if (d < 2) hasV = true; else hasH = true; } } if (hasV && hasH) v += EXP.prot; }
   return v;
 }
-const hasKingCap = u => { for (let k = 1; k < u.cp.length; k += 2) if (u.cp[k] === 3) return true; return false; };
+/* valutazione «Pilarski»: pezzi catturati +-10, pezzi catturabili +-5, via libera del re +5, re al centro +1 (statica, dal lato dei difensori) */
+function evalPil(b, turn, ply) {
+  let natt = 0, ndef = 0, kp = -1;
+  for (let i = 0; i < 81; i++) { const v = b[i]; if (v === 1) natt++; else if (v === 2) ndef++; else if (v === 3) kp = i; }
+  if (kp < 0) return -90000 + ply;
+  const lines = kingLines(b, kp);
+  if (lines > 0 && turn === 1) return 90000 - ply;
+  let v = 10 * (16 - natt) - 10 * (8 - ndef);
+  v -= 5 * capturable(b, 1).size; v += 5 * capturable(b, 0).size;
+  if (turn === 0 && attackersCanCaptureKing(b)) v -= 1000;
+  if (lines > 0) v += 5;
+  if (kp === CASTLE) v += 1;
+  return v;
+}
 function search(b, turn, d, alpha, beta, ply, nd) {
   if ((++nd.n & 255) === 0 && ((nd.dl && Date.now() > nd.dl) || (nd.max && nd.n > nd.max))) throw 'T';
   if (turn === 1 && kingLines(b) > 0) return 90000 - ply;
   const ms = genMoves(b, turn);
-  if (!ms.length) return 0;
+  if (!ms.length) return R.stale === 'lose' ? -90000 + ply : 0;
   if (d <= 0) { const e = evalPos(b, turn, ply); return turn === 1 ? e : -e; }
   const sc = new Array(ms.length), ord = new Array(ms.length);
   for (let k = 0; k < ms.length; k++) {
@@ -644,7 +975,7 @@ function search(b, turn, d, alpha, beta, ply, nd) {
   let best = -1e9;
   for (let q = 0; q < ord.length; q++) {
     const m = ms[ord[q]], u = make(b, m); let v;
-    if (u.pc === 3 && isEdge(u.t)) v = 90000 - ply;
+    if (u.pc === 3 && R.winA[u.t]) v = 90000 - ply;
     else if (hasKingCap(u)) v = 90000 - ply;
     else v = -search(b, 1 - turn, d - 1, -beta, -alpha, ply + 1, nd);
     unmake(b, u);
@@ -654,16 +985,22 @@ function search(b, turn, d, alpha, beta, ply, nd) {
 }
 const LEVELS = { 1: { d: 1, noise: 90, ms: 0, nodes: 0 }, 2: { d: 3, noise: 8, ms: 0, nodes: 60000 }, 3: { d: 7, noise: 0, ms: 1100, nodes: 400000 } };
 function rank(st, level, over) {
+  useRules(st.rid);
   const L = Object.assign({}, LEVELS[level] || LEVELS[2], over || {}), p = st.turn, t0 = Date.now();
   const b = Int8Array.from(st.b), nd = { n: 0, dl: L.ms ? t0 + L.ms : 0, max: L.nodes || 0 };
+  /* valutazione «Pilarski» per i difensori (Medio e Difficile) negli insiemi con fuga sul bordo: vedi verifica_strategie.md */
+  const pil0 = EXP.pil; EXP.pil = L.pil !== undefined ? L.pil : (pil0 || ((level >= 2 && p === 1 && (R.id === 'linneo' || R.id === 'bannerlord')) ? 1 : 0));
+  try { return rankIn(st, L, p, t0, b, nd); } finally { EXP.pil = pil0; }
+}
+function rankIn(st, L, p, t0, b, nd) {
   let out = null;
   for (let d = 1; d <= L.d; d++) {
     const cur = [];
     try {
       for (let i = 0; i < st.moves.length; i++) {
         const mv = st.moves[i], u = make(b, mv.m); let v;
-        if ((u.pc === 3 && isEdge(u.t)) || hasKingCap(u)) v = 90000;
-        else if (st.hist[posKey(b, 1 - p)]) v = 0;
+        if ((u.pc === 3 && R.winA[u.t]) || hasKingCap(u)) v = 90000;
+        else if (R.rep && st.hist[posKey(b, 1 - p)]) v = 0;
         else v = -search(b, 1 - p, d - 1, -1e9, 1e9, 1, nd);
         unmake(b, u);
         cur.push({ i, v });
@@ -688,8 +1025,77 @@ function cpuChoose(st, level, rng, over) {
 function evalFor(st, level) {
   const r = rank(st, level || 2); let b = -1e18; r.forEach(x => { if (x.v > b) b = x.v; }); return b;
 }
+/* ---------- spiegazione delle mosse: motivi veri nella posizione ---------- */
+function phaseOf(st) {
+  useRules(st.rid);
+  const b = st.b, na = countOf(b, 1), nd = countOf(b, 2), k = kingPos(b);
+  if (k >= 0 && kingLines(b, k) > 0) return 'end';
+  if (st.ply < 8 && st.caps[0] + st.caps[1] === 0 && k === CASTLE) return 'open';
+  if (na + nd <= 14 || (na + nd <= 18 && k >= 0 && kingDests(b, 2).length > 0)) return 'end';
+  return 'mid';
+}
+const mobOf = (b, side) => genMoves(b, side).length;
+function explain(st, mv) {
+  useRules(st.rid);
+  const p = st.turn, b0 = Int8Array.from(st.b), s1 = cloneState(st); s1.moves = st.moves; applyMove(s1, mv);
+  const b1 = s1.b, pc = b0[mv.f], out = [], add = (c, o) => out.push(Object.assign({ c }, o || {}));
+  const fx = s1.fx, kingCapt = fx.caps.some(c => c.v === 3);
+  if (pc === 3 && R.winA[mv.t]) { add(R.win === 'corner' ? 'win_corner' : 'win_edge', { to: mv.t }); return { phase: phaseOf(st), reasons: out, after: s1 }; }
+  if (kingCapt) { add('win_capture', { at: fx.caps.find(c => c.v === 3).i }); return { phase: phaseOf(st), reasons: out, after: s1 }; }
+  const normal = fx.caps.filter(c => c.v !== 3);
+  if (normal.length) add('capture', { n: normal.length, sq: normal.map(c => c.i), v: normal.map(c => c.v) });
+  const opp = 1 - p;
+  /* minacce di cattura nuove */
+  const T0 = capturable(b0, opp), T1 = capturable(b1, opp), nt = []; T1.forEach(x => { if (!T0.has(x)) nt.push(x); });
+  if (nt.length) add('threat_capture', { sq: nt });
+  /* salvataggi */
+  const O0 = capturable(b0, p), O1 = capturable(b1, p);
+  if (O0.has(mv.f) && !O1.has(mv.t) && pc !== 3) add('escape', { from: mv.f, to: mv.t });
+  else { const sv = []; O0.forEach(x => { if (x !== mv.f && b1[x] && !O1.has(x)) sv.push(x); }); if (sv.length) add('save_piece', { sq: sv }); }
+  const l0 = kingLines(b0), l1 = kingLines(b1);
+  if (p === 0) {
+    if (l0 > 0 && l1 < l0) add('block_line', { to: mv.t, left: l1 });
+    const f0 = kingDests(b0, 2), f1 = kingDests(b1, 2);
+    if (f0.length > 0 && f1.length < f0.length) add('stop_fork', { sq: f0.map(x => x.to), left: f1.length });
+    if (pc === 1 && CORD[mv.t] && !CORD[mv.f]) { let n = 0; for (let i = 0; i < 81; i++) if (b1[i] === 1 && CORD[i]) n++; add('cordon', { n, to: mv.t }); }
+    if (attackersCanCaptureKing(b1) && !attackersCanCaptureKing(b0)) add('threat_king', {});
+    else { const k = kingPos(b1); let a0 = 0, a1 = 0; for (let d = 0; d < 4; d++) { const q = NB[k][d]; if (q >= 0) { if (b0[q] === 1) a0++; if (b1[q] === 1) a1++; } } if (a1 > a0 && !out.some(r => r.c === 'threat_king')) add('close_king', { n: a1 }); }
+  } else {
+    if (pc === 3) {
+      const wasThr = attackersCanCaptureKing(b0), nowThr = attackersCanCaptureKing(b1);
+      if (wasThr && !nowThr) add('king_flee', {});
+      if (nowThr) add('king_risk', {});
+      if (NB[CASTLE].includes(mv.t) && b0[mv.f] === 3 && mv.f === CASTLE && l1 === 0) add('king_step', { to: mv.t });
+    } else {
+      const wasThr = attackersCanCaptureKing(b0), nowThr = attackersCanCaptureKing(b1);
+      if (wasThr && !nowThr) add('protect_king', {});
+      if (nowThr && !wasThr) add('king_risk', {});
+    }
+    if (l1 > l0 && l1 > 0) {
+      let stop = true; const ms = genMoves(b1, 0);
+      for (const m of ms) { const u = make(b1, m); const c = hasKingCap(u), l = kingLines(b1); unmake(b1, u); if (c || l === 0) { stop = false; break; } }
+      if (stop) add('forced_win', { lines: l1 }); else add('king_open_line', { lines: l1 });
+    } else if (l1 === 0) {
+      const f0 = kingDests(b0, 2), f1 = kingDests(b1, 2);
+      if (f1.length > 0 && f0.length === 0) add('prepare_fork', { sq: f1.map(x => x.to) });
+      else if (f1.length > 0 && f0.length > 0 && f1.length > f0.length) add('prepare_fork', { sq: f1.map(x => x.to) });
+    }
+    if (pc === 2) {
+      let ring = true; for (const q of INNER) if (b0[q] !== 2 && q !== mv.f) ring = false;
+      if (OUTER.includes(mv.f) && ring) add('hammer', { from: mv.f, to: mv.t });
+      else if (INNER.includes(mv.f)) add('anvil_break', { from: mv.f, to: mv.t });
+    }
+  }
+  if (!out.length) {
+    const m0 = mobOf(b0, p), m1 = (() => { s1.turn = s1.turn; return genMoves(b1, p).length; })();
+    if (p === 0 && pc === 1 && START_ATT.includes(sq(mv.f)) && st.ply < 12) add('develop', { from: mv.f, to: mv.t });
+    else if (m1 - m0 >= 3) add('mobility', { gain: m1 - m0 });
+    else add('quiet', {});
+  }
+  return { phase: phaseOf(st), reasons: out, after: s1 };
+}
 /*ENGINE_END*/
-if (typeof module !== 'undefined') module.exports = { NAMES, sq, idx, initBoard, newState, cloneState, legalMoves, applyMove, cpuChoose, rank, evalFor, evalPos, genMoves, capturesAt, kingCaptured, kingLines, kingPos, make, unmake, posKey, isEdge, CASTLE, LEVELS, countOf };
+if (typeof module !== 'undefined') module.exports = { NAMES, sq, idx, initBoard, newState, cloneState, legalMoves, applyMove, cpuChoose, rank, evalFor, evalPos, evalPil, genMoves, capturesAt, kingCaptured, kingLines, kingRays, kingLineSquares, kingPos, kingDests, make, unmake, posKey, isEdge, CASTLE, LEVELS, countOf, RS, RULE_IDS, useRules, canWin, attackersCanCaptureKing, capturable, clearEdgeH, safeEdgeH, explain, phaseOf, EXP, INNER, OUTER, START_ATT, START_DEF, CORD, hasKingCap, getR: () => R };
 
 </script>
 <script>
@@ -781,7 +1187,7 @@ function Board(svg,opt){
   if(!opt.tut)START.forEach(i=>{const p=cxy(i);h+='<rect x="'+(p.x-C*.62)+'" y="'+(p.y-C*.62)+'" width="'+(C*1.24)+'" height="'+(C*1.24)+'" fill="url(#gburn)"/>';});
   for(let i=0;i<=9;i++){const p=G0+i*C;h+='<path class="cl" d="M'+p+' '+G0+'V'+(G0+9*C)+'M'+G0+' '+p+'H'+(G0+9*C)+'"/>';}
   /* angoli: croce incisa */
-  [0,8,72,80].forEach(i=>{const p=cxy(i),q=C*.34;h+='<path d="M'+(p.x-q)+' '+(p.y-q)+'L'+(p.x+q)+' '+(p.y+q)+'M'+(p.x+q)+' '+(p.y-q)+'L'+(p.x-q)+' '+(p.y+q)+'" stroke="#3a2210" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>';});
+  [0,8,72,80].forEach(i=>{const p=cxy(i),q=C*.34;h+='<path class="cx" d="M'+(p.x-q)+' '+(p.y-q)+'L'+(p.x+q)+' '+(p.y+q)+'M'+(p.x+q)+' '+(p.y-q)+'L'+(p.x-q)+' '+(p.y+q)+'" stroke="#3a2210" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>';});
   /* castello: croce quadripartita e anello */
   {const p=cxy(40);h+='<rect x="'+(p.x-C/2+6)+'" y="'+(p.y-C/2+6)+'" width="'+(C-12)+'" height="'+(C-12)+'" fill="rgba(90,45,15,.16)" stroke="#3a2210" stroke-opacity=".7" stroke-width="3"/>'
     +'<path d="M'+(p.x-34)+' '+p.y+'H'+(p.x+34)+'M'+p.x+' '+(p.y-34)+'V'+(p.y+34)+'" stroke="#3a2210" stroke-opacity=".75" stroke-width="5" stroke-linecap="round"/><circle cx="'+p.x+'" cy="'+p.y+'" r="21" fill="none" stroke="#3a2210" stroke-opacity=".75" stroke-width="4"/><path d="M'+(p.x-14)+' '+(p.y-14)+'L'+(p.x+14)+' '+(p.y+14)+'M'+(p.x+14)+' '+(p.y-14)+'L'+(p.x-14)+' '+(p.y+14)+'" stroke="#3a2210" stroke-opacity=".55" stroke-width="3"/>';}
@@ -790,10 +1196,10 @@ function Board(svg,opt){
   for(let c=0;c<9;c++){const x=G0+c*C+C/2;co+='<text class="cn" x="'+x+'" y="'+(G0-18)+'">'+'abcdefghi'[c]+'</text><text class="cn" x="'+x+'" y="'+(G0+9*C+36)+'">'+'abcdefghi'[c]+'</text>';}
   for(let r=0;r<9;r++){const y=G0+r*C+C/2+9;co+='<text class="cn" x="'+(G0-30)+'" y="'+y+'">'+(9-r)+'</text><text class="cn" x="'+(G0+9*C+30)+'" y="'+y+'">'+(9-r)+'</text>';}
   h+='<g class="crd">'+co+'</g>';
-  h+='<g class="cells"></g><g class="ann"></g><g class="pcs"></g><g class="dts"></g><g class="ovs"></g>';
+  h+='<g class="cells"></g><g class="rul"></g><g class="ann"></g><g class="pcs"></g><g class="dts"></g><g class="ovs"></g>';
   svg.setAttribute('viewBox','0 0 '+W+' '+W);
   svg.innerHTML=h;
-  const cellsG=svg.querySelector('.cells'), annG=svg.querySelector('.ann'), pcsG=svg.querySelector('.pcs'), dtsG=svg.querySelector('.dts'), ovsG=svg.querySelector('.ovs');
+  const rulG=svg.querySelector('.rul'), cellsG=svg.querySelector('.cells'), annG=svg.querySelector('.ann'), pcsG=svg.querySelector('.pcs'), dtsG=svg.querySelector('.dts'), ovsG=svg.querySelector('.ovs');
   const ov=[], hl=[], pcs=new Array(81).fill(null);
   for(let i=0;i<81;i++){
     const p=cxy(i),r=document.createElementNS(NS,'rect'),q=document.createElementNS(NS,'rect');
@@ -835,6 +1241,18 @@ function Board(svg,opt){
     selPiece(i){pcsG.querySelectorAll('.pc.sel').forEach(e=>e.classList.remove('sel'));if(i!=null&&pcs[i])pcs[i].classList.add('sel');},
     winPiece(i){if(pcs[i])pcs[i].classList.add('win');},
     ann(html){annG.innerHTML=html;},
+    rules(id){
+      const Rr=RS[id]||RS.linneo; let h='';
+      const star=(x,y,r)=>{let d='';for(let k=0;k<10;k++){const a=-Math.PI/2+k*Math.PI/5,rr=k%2?r*.45:r;d+=(k?'L':'M')+(x+rr*Math.cos(a)).toFixed(1)+' '+(y+rr*Math.sin(a)).toFixed(1);}return d+'Z';};
+      if(id==='bologna'){
+        for(let i=0;i<81;i++){const p=cxy(i);
+          if(Rr.campA[i])h+='<rect x="'+(p.x-C/2+3)+'" y="'+(p.y-C/2+3)+'" width="'+(C-6)+'" height="'+(C-6)+'" fill="url(#gcamp)" stroke="#3a2210" stroke-opacity=".55" stroke-width="2"/>';
+          else if(Rr.winA[i])h+='<path d="'+star(p.x,p.y,26)+'" fill="#7fe6ee" fill-opacity=".85" stroke="#1d6d77" stroke-width="3" stroke-linejoin="round"/>';}
+      } else if(id==='pilarski'){
+        CORNERS.forEach(i=>{const p=cxy(i);h+='<rect x="'+(p.x-C/2+4)+'" y="'+(p.y-C/2+4)+'" width="'+(C-8)+'" height="'+(C-8)+'" fill="rgba(255,214,90,.34)" stroke="#9a6a10" stroke-width="3"/><path d="'+star(p.x,p.y,34)+'" fill="#f2c53a" stroke="#7a5410" stroke-width="3.5" stroke-linejoin="round"/>';});
+      }
+      rulG.innerHTML=h; svg.classList.toggle('nocx',id==='bologna'||id==='pilarski');
+    },
     coords(on){svg.querySelector('.crd').style.display=on?'':'none';},
     /* anima una mossa {f,t,caps:[{i,v}]}; ok() verifica che la partita non sia stata azzerata */
     async animate(fx,ok,snd){
@@ -860,8 +1278,15 @@ function Board(svg,opt){
 const svg=$('#board');
 const cfg={coord:true,dots:true,lane:true};
 const bd=Board(svg);
-let st, gen=0, busy=false, selected=null, note='', cpuOn=true, level=2, humanSide=1, hist=[], drawAsk=0, drawTimer=0, animFlag=false;
+let rid='linneo', st, gen=0, busy=false, selected=null, note='', cpuOn=true, level=2, humanSide=1, hist=[], drawAsk=0, drawTimer=0, animFlag=false;
 const isCpu=p=>cpuOn&&p!==humanSide;
+const ruleName=id=>({linneo:_('Linneo (standard)','Linnaeus (standard)'),bologna:_('Cittadelle (Bologna)','Citadels (Bologna)'),pilarski:_('Angoli (Pilarski)','Corners (Pilarski)'),bannerlord:_('Bannerlord (semplificato)','Bannerlord (simplified)')}[id]);
+const ruleDesc=id=>({
+ linneo:_('Le regole del testo: il re vince su qualsiasi casa del bordo; castello vuoto ostile; patta per ripetizione.','The rules of the text: the king wins on any edge square; the empty castle is hostile; draw by repetition.'),
+ bologna:_('Articolo di De Filippo et al. (2025): il re vince sulle case «stella» del bordo (non angoli né accampamenti); accampamenti e castello sono cittadelle; chi non può muovere perde.','De Filippo et al. (2025): the king wins on the “star” edge squares (not corners or camps); camps and castle are citadels; a player with no legal move loses.'),
+ pilarski:_('Articolo di Pilarski: il re vince solo negli angoli; angoli e castello sono ostili a tutti; limite di 100 mosse.','Pilarski: the king wins only in a corner; corners and castle are hostile to everyone; 100-move limit.'),
+ bannerlord:_('Guida di Jubal sul videogioco: il re vince su qualsiasi casa del bordo ed è catturato da due soli lati opposti, anche contro il castello vuoto.','Jubal’s guide to the video game: the king wins on any edge square and is captured by just two opposite sides, even against the empty castle.')
+}[id]);
 const alive=g=>()=>g===gen;
 function later(fn,ms){const g=gen;setTimeout(()=>{if(g===gen)fn();},ms);}
 function pushLog(ev){
@@ -876,12 +1301,9 @@ function pushLog(ev){
 }
 const pname=p=>NAMES[p];
 const pieceName=v=>v===1?_('Attaccante','Attacker'):v===2?_('Difensore','Defender'):_('Re','King');
-function laneSquares(){
-  const k=kingPos(st.b),out=[];if(k<0)return out;
-  for(let d=0;d<4;d++){let j=NB[k][d],run=[],okd=j>=0;while(j>=0){if(st.b[j]!==0){okd=false;break;}run.push(j);j=NB[j][d];}if(okd)run.forEach(x=>{if(x!==CASTLE)out.push(x);});}
-  return out;
-}
+function laneSquares(){useRules(st.rid);return kingLineSquares(st.b);}
 function render(){
+  useRules(st.rid);
   if(!animFlag)bd.sync(st.b);
   const human=st.phase==='move'&&!busy&&!isCpu(st.turn);
   bd.clearCls();
@@ -933,8 +1355,8 @@ function panels(){
 function statusHTML(){
   const p=st.turn, N='<b>'+NAMES[p]+'</b>';
   if(st.phase==='over'){
-    if(st.winner==='draw')return '<b>'+_('Partita patta.','The game is drawn.')+'</b> '+({repeat:_('La posizione si è ripetuta.','The position repeated.'),stalemate:_('Chi era di turno non poteva muovere.','The player to move had no legal move.'),agreed:_('Patta per accordo.','Drawn by agreement.')}[st.over]||'');
-    const w=st.winner; return '<b>'+_(w===0?'Vincono gli ':'Vincono i ','')+NAMES[w]+_('',' win')+'.</b> '+(st.over==='edge'?_('Il re ha raggiunto il bordo.','The king reached the edge.'):_('Il re è stato catturato.','The king was captured.'));
+    if(st.winner==='draw')return '<b>'+_('Partita patta.','The game is drawn.')+'</b> '+({repeat:_('La posizione si è ripetuta.','The position repeated.'),stalemate:_('Chi era di turno non poteva muovere.','The player to move had no legal move.'),agreed:_('Patta per accordo.','Drawn by agreement.'),limit:_('Raggiunto il limite di 100 mosse.','The 100-move limit was reached.')}[st.over]||'');
+    const w=st.winner; return '<b>'+_(w===0?'Vincono gli ':'Vincono i ','')+NAMES[w]+_('',' win')+'.</b> '+({edge:_('Il re ha raggiunto il bordo.','The king reached the edge.'),corner:_('Il re ha raggiunto un angolo.','The king reached a corner.'),king:_('Il re è stato catturato.','The king was captured.'),nomove:_('Chi era di turno non poteva muovere.','The player to move had no legal move.')}[st.over]||'');
   }
   if(note)return note;
   if(animFlag)return '';
@@ -998,10 +1420,10 @@ $('#undoBtn').addEventListener('click',()=>{
   note=''; selected=null; hintMv=null; render(); if(isCpu(st.turn))later(cpuMove,250);
 });
 /* patta per accordo */
-const BASE=(()=>{const s=newState();return evalPos(s.b,0,0);})();
+let BASE=(()=>{const s=newState();return evalPos(s.b,0,0);})();
 function cpuAcceptsDraw(){
   /* punto di vista del computer: positivo = meglio per lui; accetta se la propria posizione è peggiore dell'iniziale */
-  const e=evalPos(st.b,st.turn,0)-BASE, mine=humanSide===1?-e:e;
+  useRules(st.rid);const e=evalPos(st.b,st.turn,0)-BASE, mine=humanSide===1?-e:e;
   return mine<-60;
 }
 $('#drawBtn').addEventListener('click',()=>{
@@ -1025,20 +1447,21 @@ function startGame(){
   const f=$('#opts');
   cpuOn=f.opp.value==='cpu'; level=+f.lvl.value;
   humanSide=f.side.value==='r'?(Math.random()<.5?0:1):+f.side.value;
-  st=newState();
+  rid=f.rset.value; st=newState({rules:rid}); BASE=evalPos(st.b,0,0); bd.rules(rid);
   bd.coords(cfg.coord);
   $('#log').innerHTML='';
-  pushLog([{p:null,msg:cpuOn?_('Nuova partita. Giochi con '+(humanSide===0?'gli ':'i ')+NAMES[humanSide]+'; muovono per primi gli Attaccanti.','New game. You play the '+NAMES[humanSide]+'; the Attackers move first.'):_('Nuova partita a due giocatori. Muovono per primi gli Attaccanti.','New two-player game. The Attackers move first.')}]);
+  pushLog([{p:null,msg:cpuOn?_('Nuova partita ('+ruleName(rid)+'). Giochi con '+(humanSide===0?'gli ':'i ')+NAMES[humanSide]+'; muovono per primi gli Attaccanti.','New game ('+ruleName(rid)+'). You play the '+NAMES[humanSide]+'; the Attackers move first.'):_('Nuova partita a due giocatori ('+ruleName(rid)+'). Muovono per primi gli Attaccanti.','New two-player game ('+ruleName(rid)+'). The Attackers move first.')}]);
   bd.sync(st.b);
   render(); next();
 }
-const dynLang=()=>{NAMES[0]=_('Attaccanti','Attackers');NAMES[1]=_('Difensori','Defenders');$('#hintBtn').textContent=_('Suggerimento','Hint');$('#undoBtn').textContent=_('Annulla','Undo');svg.setAttribute('aria-label',_('Tavola del tablut','Tablut board'));if(st)render();};
+const dynLang=()=>{NAMES[0]=_('Attaccanti','Attackers');NAMES[1]=_('Difensori','Defenders');$('#hintBtn').textContent=_('Suggerimento','Hint');$('#undoBtn').textContent=_('Annulla','Undo');svg.setAttribute('aria-label',_('Tavola del tablut','Tablut board'));const rd=$('#rdesc');if(rd){const cur=document.querySelector('#opts input[name=rset]:checked');rd.textContent=ruleDesc(cur?cur.value:'linneo');}if(st)render();};
 langHooks.unshift(dynLang);dynLang();
 $('#newBtn').addEventListener('click',startGame);
 $('#againBtn').addEventListener('click',startGame);
 $('#opts').addEventListener('submit',e=>e.preventDefault());
 $('#opts').addEventListener('change',e=>{
   const n=e.target.name;
+  if(n==='rset'){$('#rdesc').textContent=ruleDesc(e.target.value);}
   if(n==='opp'){$('#fsLevel').classList.toggle('off',e.target.value==='two');$('#fsSide').classList.toggle('off',e.target.value==='two');}
 });
 $('#optCoord').addEventListener('change',e=>{cfg.coord=e.target.checked;bd.coords(cfg.coord);});
@@ -1460,6 +1883,526 @@ document.addEventListener('keydown',e=>{
   }
 });
 langHooks.push(()=>{SL=buildSL();if(!$('#tut').hidden)tutRender();});
+/*LESSONS_START*/
+/* Lezioni del tutorial: posizioni e mosse scelte a mano, ma ogni affermazione è controllata dal motore (verifyLesson).
+   t: titolo, i: introduzione, s: [{m:'e3-e4', say:[it,en], ex:[codici attesi]}], k: verifiche, c: conclusione (con {segnaposti} riempiti dalla verifica), v: nota sulle altre regole */
+const LESSON_ENV = (typeof module !== 'undefined' && typeof require === 'function') ? require('./engine.js') : null;
+const LESSONS = [
+ { id: 'o1', ph: 'open', rules: 'linneo', start: 'initial', setup: [],
+   t: ['Apertura: chiudere i varchi con il cordone', 'Opening: closing the gaps with a cordon'],
+   i: ['Gli attaccanti sono sedici e i difensori devono arrivare al bordo. Il piano classico degli attaccanti è chiudere le diagonali accanto agli angoli, tra una «T» e l\'altra: con quattro pezzi per diagonale il re non passa. Qui si costruisce la diagonale in alto a sinistra: d9, c8, b7, a6. I difensori muovono soltanto i pezzi esterni, ciascuno lungo la propria colonna o riga.',
+       'There are sixteen attackers and the defenders have to reach the edge. The classic attacking plan is to close the diagonals beside the corners, between one “T” and the next: with four pieces per diagonal the king cannot get through. Here the upper-left diagonal is built: d9, c8, b7, a6. The defenders move only their outer pieces, each along its own column or row.'],
+   s: [ { m: 'b5-b7', say: ['Il pezzo di b5 sale a b7: è il primo anello della diagonale d9–c8–b7–a6, che chiude un varco verso l\'angolo in alto a sinistra.', 'The piece on b5 climbs to b7: it is the first link of the diagonal d9–c8–b7–a6, which closes a gap towards the upper-left corner.'], ex: ['cordon'] },
+        { m: 'c5-c3', say: ['I difensori rispondono con un pezzo esterno, lungo la sua colonna: i quattro difensori interni restano intorno al re e fanno da incudine.', 'The defenders reply with an outer piece, along its own column: the four inner defenders stay around the king and act as the anvil.'], ex: ['hammer'] },
+        { m: 'e8-c8', say: ['Il pezzo di e8 scorre fino a c8 e completa la diagonale: d9, c8, b7 e a6 sono tutti attaccanti.', 'The piece on e8 slides to c8 and completes the diagonal: d9, c8, b7 and a6 are all attackers.'], ex: ['cordon'] } ],
+   k: [{ k: 'cordon', sq: ['d9', 'c8', 'b7', 'a6'] }],
+   c: ['Verificato dal motore: dopo queste mosse d9, c8, b7 e a6 sono occupate da attaccanti. Ripetendo il piano nei quattro angoli servono tutti i sedici pezzi: non resta nessuno per altro.', 'Verified by the engine: after these moves d9, c8, b7 and a6 are occupied by attackers. Repeating the plan at all four corners takes all sixteen pieces: none is left for anything else.'],
+   v: ['Con le regole a bordo (Linneo, Bologna, Bannerlord) il cordone sulle diagonali non basta: il re vince su qualsiasi casa del bordo. Serve davvero con le regole a angoli (Pilarski): vedi il finale «Il cordone completo».', 'With edge rules (Linnaeus, Bologna, Bannerlord) the diagonal cordon is not enough: the king wins on any edge square. It really works with corner rules (Pilarski): see the endgame “The complete cordon”.'] },
+ { id: 'o2', ph: 'open', rules: 'linneo', start: 'initial', setup: [],
+   t: ['Apertura: incudine e martello', 'Opening: anvil and hammer'],
+   i: ['I quattro difensori accanto al re sono l\'incudine; i quattro esterni sono il martello. Un attaccante che si avvicina all\'incudine può essere catturato con una mossa di un pezzo esterno: la cattura avviene tra il martello e l\'incudine.',
+       'The four defenders next to the king are the anvil; the four outer ones are the hammer. An attacker that comes close to the anvil can be captured by a move of an outer piece: the capture happens between the hammer and the anvil.'],
+   s: [ { m: 'd9-d6', say: ['L\'attaccante scende fino a d6, accanto a e6: è una mossa avventata, perché d6 è tra c6 e il difensore di e6.', 'The attacker drops down to d6, next to e6: this is hasty, because d6 lies between c6 and the defender on e6.'], ex: [] },
+        { m: 'c5-c6', say: ['Il difensore esterno di c5 sale a c6 e cattura d6 tra sé e il difensore di e6 (incudine), senza muovere nessuno dei pezzi interni.', 'The outer defender on c5 steps up to c6 and captures d6 between itself and the defender on e6 (the anvil), without moving any of the inner pieces.'], ex: ['capture', 'hammer'] } ],
+   k: [{ k: 'captures', n: 1 }, { k: 'empty', sq: ['d6'] }],
+   c: ['Verificato dal motore: la mossa c5–c6 cattura il pezzo in d6 e i quattro difensori interni sono ancora al loro posto.', 'Verified by the engine: the move c5–c6 captures the piece on d6 and the four inner defenders are still in place.'],
+   v: ['La stessa cattura vale con tutti gli insiemi di regole: è una cattura per due lati opposti. In Pilarski e Bologna cambiano soltanto le case ostili.', 'The same capture works under every rule set: it is a capture by two opposite sides. Under Pilarski and Bologna only the hostile squares differ.'] },
+ { id: 'o3', ph: 'open', rules: 'linneo', start: 'initial', setup: ['e8-d8', 'g5-g7', 'a6-c6', 'f5-f2', 'h5-f5', 'e6-f6', 'f9-f7', 'e5-e6', 'f5-f6'],
+   t: ['Apertura: rispondere a una via libera', 'Opening: answering an open line'],
+   i: ['Dopo nove mosse di apertura (già giocate) il re è in e6. Un difensore sta per aprire una via verso il bordo; gli attaccanti devono accorgersene subito.',
+       'After nine opening moves (already played) the king is on e6. A defender is about to open a route to the edge; the attackers must notice at once.'],
+   s: [ { m: 'e7-c7', say: ['Il difensore di e7 cattura c6 e, spostandosi, apre al re una via libera lungo la sesta traversa verso il bordo.', 'The defender on e7 captures c6 and, by moving, opens a free route along the sixth rank for the king.'], ex: ['capture', 'king_open_line'] },
+        { m: 'b5-b6', say: ['Gli attaccanti rispondono chiudendo la via in b6: il re non può più arrivare al bordo con una mossa.', 'The attackers answer by closing the route on b6: the king can no longer reach the edge in one move.'], ex: ['block_line'] } ],
+   k: [{ k: 'blockers', after: 1 }],
+   c: ['Verificato dal motore: dopo e7–c7 gli attaccanti hanno {Y} mosse; solo {X} di esse fermano il re (chiudendo la via o catturandolo). Tutte le altre lasciano al re una via libera e lui vince.', 'Verified by the engine: after e7–c7 the attackers have {Y} moves; only {X} of them stop the king (by closing the route or capturing him). Every other move leaves the king a free route and he wins.'],
+   v: ['Con le regole a angoli la stessa posizione è molto meno pericolosa: il re deve arrivare in un angolo, non in una casa qualsiasi del bordo.', 'Under the corner rules the same position is far less dangerous: the king has to reach a corner, not just any edge square.'] },
+ { id: 'm1', ph: 'mid', rules: 'bannerlord', start: 'A a7 d7 c6|D c8 b3 e3|K c7', turn: 1, setup: [],
+   t: ['Medio gioco: proteggere il re bloccando due lati adiacenti', 'Middlegame: protecting the king by blocking two adjacent sides'],
+   i: ['Qui il re è in c7 e gli attaccanti stanno già in c6 (sud) e d7 (est). Se un attaccante arriva in b7 (ovest), il re è catturato tra b7 e d7. Con le regole di Bannerlord bastano due lati opposti. Il difensore deve bloccare uno dei lati con un pezzo suo.',
+       'Here the king is on c7 and the attackers already stand on c6 (south) and d7 (east). If an attacker reaches b7 (west), the king is captured between b7 and d7. Under the Bannerlord rules two opposite sides are enough. The defender has to block one of the sides with his own piece.'],
+   s: [ { m: 'b3-b7', say: ['Il difensore di b3 sale a b7: ora il re ha un pezzo difensore a ovest (b7) e uno a nord (c8). I due lati bloccati sono adiacenti, e nessuna coppia di lati opposti è formata solo da attaccanti.', 'The defender on b3 climbs to b7: now the king has a defending piece on the west (b7) and one on the north (c8). The two blocked sides are adjacent, and no pair of opposite sides is made up only of attackers.'], ex: ['protect_king'] },
+        { m: 'a7-a8', say: ['Gli attaccanti non hanno più una cattura immediata del re e cercano un altro piano.', 'The attackers no longer have an immediate capture of the king and look for another plan.'], ex: [] } ],
+   k: [{ k: 'kingThreatBefore' }, { k: 'kingSafeAfter', after: 0 }],
+   c: ['Verificato dal motore: prima di b3–b7 gli attaccanti potevano catturare il re con una mossa; dopo, nessuna delle loro mosse lo cattura.', 'Verified by the engine: before b3–b7 the attackers could capture the king in one move; afterwards none of their moves captures him.'],
+   v: ['Il pezzo che blocca può essere catturato a sua volta: la protezione dura finché i due difensori restano al loro posto. La stessa idea vale con le regole di Linneo, Bologna e Pilarski quando il re è lontano dal castello.', 'The blocking piece can itself be captured: the protection lasts as long as the two defenders stay where they are. The same idea holds under the Linnaeus, Bologna and Pilarski rules when the king is far from the castle.'] },
+ { id: 'm2', ph: 'mid', rules: 'bannerlord', start: 'A a7 d9|D c8 c6 g7|K c7', turn: 0, setup: [],
+   t: ['Medio gioco: l\'esca e il martello', 'Middlegame: the bait and the hammer'],
+   i: ['Il re è in c7 con due difensori non adiacenti, a nord (c8) e a sud (c6): nessuna cattura in verticale è possibile. L\'unico pericolo è tra b7 e d7. Un difensore esterno (il martello) è pronto in g7, sulla stessa traversa.',
+       'The king is on c7 with two non-adjacent defenders, to the north (c8) and to the south (c6): no vertical capture is possible. The only danger is between b7 and d7. An outer defender (the hammer) is ready on g7, on the same rank.'],
+   s: [ { m: 'd9-d7', say: ['L\'attaccante si porta in d7, accanto al re: minaccia di catturarlo portando un altro pezzo in b7.', 'The attacker moves to d7, next to the king: it threatens to capture him by bringing another piece to b7.'], ex: ['threat_king'] },
+        { m: 'g7-e7', say: ['Il martello arriva in e7 e cattura d7 tra sé e il re. La minaccia è sparita e gli attaccanti hanno perso un pezzo.', 'The hammer arrives on e7 and captures d7 between itself and the king. The threat is gone and the attackers have lost a piece.'], ex: ['capture', 'protect_king'] } ],
+   k: [{ k: 'kingThreatAfter', after: 0 }, { k: 'captures', n: 1 }, { k: 'kingSafeAfter', after: 1 }],
+   c: ['Verificato dal motore: dopo d9–d7 gli attaccanti minacciano di catturare il re; dopo g7–e7 il pezzo in d7 è catturato e nessuna mossa degli attaccanti cattura il re.', 'Verified by the engine: after d9–d7 the attackers threaten to capture the king; after g7–e7 the piece on d7 is captured and none of the attackers\' moves captures the king.'],
+   v: ['Con le regole che richiedono più lati attorno al re accanto al castello (Linneo, Bologna, Pilarski) l\'esca è meno efficace: vicino al castello servono tre o quattro attaccanti.', 'Under the rules that require more sides around a king beside the castle (Linnaeus, Bologna, Pilarski) the bait is less effective: near the castle three or four attackers are needed.'] },
+ { id: 'm3', ph: 'mid', rules: 'linneo', start: 'A d9 c8 b7 a6 g8|D a7 c9 c3 e2|K g3', turn: 1, setup: [],
+   t: ['Medio gioco: spezzare il cordone con una cattura doppia', 'Middlegame: breaking the cordon with a double capture'],
+   i: ['Gli attaccanti hanno costruito la diagonale d9, c8, b7, a6 per chiudere l\'angolo in alto a sinistra. Due difensori (a7 e c9) stanno dietro i pezzi di b7 e c8. Un difensore su una colonna libera può cogliere entrambi con una sola mossa.',
+       'The attackers have built the diagonal d9, c8, b7, a6 to close the upper-left corner. Two defenders (a7 and c9) stand behind the pieces on b7 and c8. A defender on an open column can take both with a single move.'],
+   s: [ { m: 'c3-c7', say: ['Il difensore sale in c7: b7 resta tra c7 e a7, c8 resta tra c7 e c9. Due pezzi sono catturati con una sola mossa e la diagonale è spezzata.', 'The defender climbs to c7: b7 is left between c7 and a7, c8 between c7 and c9. Two pieces are captured with a single move and the diagonal is broken.'], ex: ['capture'] } ],
+   k: [{ k: 'captures', n: 2 }, { k: 'wallCount', before: 4, after: 2 }],
+   c: ['Verificato dal motore: la mossa c3–c7 cattura due pezzi e la diagonale passa da quattro attaccanti a due.', 'Verified by the engine: the move c3–c7 captures two pieces and the diagonal goes from four attackers to two.'],
+   v: ['Il cordone è fragile: ogni suo pezzo ha due vicini liberi sulla traversa e sulla colonna, quindi può essere catturato da due difensori. È per questo che i difensori lo attaccano.', 'The cordon is fragile: each of its pieces has two free neighbours on its rank and column, so it can be captured by two defenders. That is why the defenders attack it.'] },
+ { id: 'e1', ph: 'end', rules: 'linneo', start: 'A a7 d9 g8 i6 e2|D e5 e6 f5|K c5', turn: 1, setup: [],
+   t: ['Finale: la traversa libera e la doppia via', 'Endgame: the open rank and the double route'],
+   i: ['La terza traversa è completamente vuota. Se il re vi arriva, avrà vie libere verso due bordi opposti, e gli attaccanti con una sola mossa non possono bloccarle entrambe.',
+       'The third rank is completely empty. If the king gets there, he will have free routes to two opposite edges, and the attackers cannot block both with a single move.'],
+   s: [ { m: 'c5-c3', say: ['Il re va in c3: ora ha una via a ovest (b3, a3), una a est (d3…i3) e una a sud (c2, c1).', 'The king goes to c3: he now has a route to the west (b3, a3), one to the east (d3…i3) and one to the south (c2, c1).'], ex: ['forced_win'] },
+        { m: 'e2-e3', say: ['Gli attaccanti possono bloccare una via sola (qui quella a est).', 'The attackers can block only one route (here the eastern one).'], ex: ['block_line'] },
+        { m: 'c3-a3', say: ['Il re sceglie un\'altra via e arriva al bordo: vincono i difensori.', 'The king chooses another route and reaches the edge: the defenders win.'], ex: ['win_edge'] } ],
+   k: [{ k: 'winIn', n: 2 }, { k: 'unstoppable', after: 0 }],
+   c: ['Verificato dal motore: dalla posizione iniziale i difensori vincono per forza in due mosse, qualunque cosa facciano gli attaccanti.', 'Verified by the engine: from the starting position the defenders win by force in two moves, whatever the attackers do.'],
+   v: ['Con le regole a angoli (Pilarski) la traversa libera non basta: il re deve ancora arrivare in un angolo. Per questo servono il «bordo libero» e il «bordo sicuro».', 'Under the corner rules (Pilarski) the open rank is not enough: the king still has to reach a corner. That is why the “clear edge” and the “safe edge” matter.'] },
+ { id: 'e2', ph: 'end', rules: 'pilarski', start: 'A a4 a6 b5 g2 h6 i4|D e3 d4|K c5', turn: 1, setup: [],
+   t: ['Finale: il bordo libero (angoli)', 'Endgame: the clear edge (corners)'],
+   i: ['Con le regole a angoli il re deve arrivare a una delle quattro case d\'angolo. La riga 9 è completamente vuota: se il re vi arriva, da lì può correre verso a9 o verso i9, e gli attaccanti riescono a chiuderne una sola.',
+       'Under the corner rules the king has to reach one of the four corner squares. Row 9 is completely empty: if the king gets there, he can run to a9 or to i9, and the attackers can close only one of them.'],
+   s: [ { m: 'c5-c9', say: ['Il re sale a c9, sul bordo libero: ha davanti due vie, verso a9 (passando da b9) e verso i9.', 'The king climbs to c9, on the clear edge: he has two routes ahead, to a9 (through b9) and to i9.'], ex: ['forced_win'] },
+        { m: 'a6-a8', say: ['Gli attaccanti non possono chiudere entrambe le vie e non possono catturare il re: possono solo scegliere quale lasciare aperta.', 'The attackers cannot close both routes and cannot capture the king: they can only choose which one to leave open.'], ex: [] },
+        { m: 'c9-i9', say: ['Il re raggiunge l\'angolo i9: vincono i difensori.', 'The king reaches the corner i9: the defenders win.'], ex: ['win_corner'] } ],
+   k: [{ k: 'clearEdge' }, { k: 'winIn', n: 2 }],
+   c: ['Verificato dal motore: il rilevatore «bordo libero» riconosce la posizione e la ricerca esaustiva conferma che i difensori vincono per forza in due mosse.', 'Verified by the engine: the “clear edge” detector recognises the position and the exhaustive search confirms that the defenders win by force in two moves.'],
+   v: ['Con le regole a bordo (Linneo, Bologna, Bannerlord) la stessa mossa c5–c9 vince subito, perché c9 è già una casa del bordo.', 'Under the edge rules (Linnaeus, Bologna, Bannerlord) the same move c5–c9 wins at once, because c9 is already an edge square.'] },
+ { id: 'e3', ph: 'end', rules: 'pilarski', start: 'A a6 b8 g8 h6|D e4|K c3', turn: 1, setup: [],
+   t: ['Finale: il bordo sicuro (angoli)', 'Endgame: the safe edge (corners)'],
+   i: ['Il bordo non è libero (ci sono attaccanti su a6), ma le traverse 2 e 3 non hanno attaccanti. Se il re va in a3, può passare da a2 e arrivare in a1: nessun attaccante può raggiungere a2 né catturare il re.',
+       'The edge is not clear (there is an attacker on a6), but ranks 2 and 3 have no attackers. If the king goes to a3 he can pass through a2 and reach a1: no attacker can get to a2 or capture the king.'],
+   s: [ { m: 'c3-a3', say: ['Il re va in a3, sul bordo sinistro.', 'The king goes to a3, on the left edge.'], ex: ['forced_win'] },
+        { m: 'g8-g7', say: ['Gli attaccanti non hanno nessuna mossa che fermi il re.', 'The attackers have no move that stops the king.'], ex: [] },
+        { m: 'a3-a1', say: ['Il re passa da a2 e raggiunge l\'angolo a1.', 'The king passes through a2 and reaches the corner a1.'], ex: ['win_corner'] } ],
+   k: [{ k: 'safeEdge' }, { k: 'winIn', n: 2 }],
+   c: ['Verificato dal motore: il rilevatore «bordo sicuro» riconosce la posizione e la ricerca esaustiva conferma la vittoria forzata in due mosse.', 'Verified by the engine: the “safe edge” detector recognises the position and the exhaustive search confirms the forced win in two moves.'],
+   v: ['Con le regole a bordo il re vince già in a3: la nozione di «bordo sicuro» serve solo quando l\'obiettivo sono gli angoli.', 'Under the edge rules the king already wins on a3: the notion of a “safe edge” only matters when the goal is the corners.'] },
+ { id: 'e4', ph: 'end', rules: 'pilarski', start: 'A a2 g8 h6|D e4|K c3', turn: 1, setup: [],
+   t: ['Finale: il re cattura contro l\'angolo e fugge', 'Endgame: the king captures against the corner and runs'],
+   i: ['Un attaccante in a2 sembra sbarrare la strada verso l\'angolo a1. Ma l\'angolo è ostile anche agli attaccanti: se il re va in a3, a2 resta tra il re e l\'angolo e viene catturato.',
+       'An attacker on a2 seems to bar the way to the corner a1. But the corner is hostile to the attackers too: if the king goes to a3, a2 is left between the king and the corner and is captured.'],
+   s: [ { m: 'c3-a3', say: ['Il re va in a3 e cattura a2 tra sé e l\'angolo a1. Ora a2 è libera.', 'The king goes to a3 and captures a2 between himself and the corner a1. Now a2 is free.'], ex: ['capture'] },
+        { m: 'g8-g7', say: ['Gli attaccanti non possono raggiungere a2 né catturare il re.', 'The attackers cannot reach a2 or capture the king.'], ex: [] },
+        { m: 'a3-a1', say: ['Il re raggiunge l\'angolo a1.', 'The king reaches the corner a1.'], ex: ['win_corner'] } ],
+   k: [{ k: 'captures', n: 1 }, { k: 'winIn', n: 2 }],
+   c: ['Verificato dal motore: c3–a3 cattura a2 e i difensori vincono per forza entro due mosse dalla posizione iniziale.', 'Verified by the engine: c3–a3 captures a2 and the defenders win by force within two moves of the starting position.'],
+   v: ['Questa cattura contro l\'angolo esiste solo nelle regole di Pilarski, dove gli angoli sono ostili. In Linneo il re in a3 vince subito, perché è sul bordo.', 'This capture against the corner exists only under the Pilarski rules, where the corners are hostile. Under Linnaeus the king on a3 wins at once, because he is on the edge.'] },
+ { id: 'e5', ph: 'end', rules: 'pilarski', start: 'A d9 c8 b7 a6 f9 g8 h7 i6 a4 b3 c2 d1 f1 g2 h3 i4|D e6 e4 d5 f5|K e5', turn: 1, setup: [],
+   t: ['Finale: il cordone completo', 'Endgame: the complete cordon'],
+   i: ['Qui i sedici attaccanti sono sulle quattro diagonali accanto agli angoli. Con le mosse ortogonali nessun pezzo può passare tra due case di una diagonale: gli angoli sono chiusi finché il cordone resta intero.',
+       'Here the sixteen attackers stand on the four diagonals beside the corners. With orthogonal moves no piece can slip between two squares of a diagonal: the corners are sealed as long as the cordon stays whole.'],
+   s: [ { m: 'e6-b6', say: ['I difensori muovono, ma tra i pezzi del cordone non c\'è nessun varco da attraversare.', 'The defenders move, but there is no gap to cross between the pieces of the cordon.'], ex: [] } ],
+   k: [{ k: 'sealed', rules: 'pilarski' }, { k: 'notSealed', rules: 'linneo' }],
+   c: ['Verificato dal motore: con le regole di Pilarski il re non può raggiungere nessun angolo finché i sedici attaccanti restano sul cordone (calcolo di raggiungibilità, senza considerare le catture). Con le regole di Linneo, a parità di pezzi, il re può raggiungere il bordo.', 'Verified by the engine: under the Pilarski rules the king cannot reach any corner as long as the sixteen attackers stay on the cordon (reachability computation, ignoring captures). Under the Linnaeus rules, with the same pieces, the king can reach the edge.'],
+   v: ['Un cordone intero lascia agli attaccanti nessuna riserva: se un solo pezzo viene catturato, un varco si apre. Per questo l\'articolo non lo considera una vittoria degli attaccanti, ma solo un blocco.', 'A complete cordon leaves the attackers no reserve: if a single piece is captured, a gap opens. That is why this is only a block, not a win for the attackers.'] },
+ { id: 'o4', ph: 'open', rules: 'linneo', start: 'initial', setup: [],
+   t: ['Apertura: una prima mossa che non regala pezzi', 'Opening: a first move that gives nothing away'],
+   i: ['Gli attaccanti muovono per primi. Alcune prime mosse espongono un pezzo alla cattura immediata, altre no. Il motore ha contato tutte le prime mosse possibili.',
+       'The attackers move first. Some first moves expose a piece to immediate capture, others do not. The engine has counted every possible first move.'],
+   s: [ { m: 'e8-c8', say: ['Il pezzo di e8 scorre fino a c8: non può essere catturato subito, perché nessun difensore può portarsi sul lato opposto di c8 al primo turno, e comincia la diagonale d9–c8–b7–a6.', 'The piece on e8 slides to c8: it cannot be captured at once, because no defender can reach the opposite side of c8 on the first turn, and it starts the diagonal d9–c8–b7–a6.'], ex: ['cordon'] } ],
+   k: [{ k: 'unsafeFirst', x: 16, y: 80 }, { k: 'safeStep', step: 0 }],
+   c: ['Verificato dal motore: delle 80 mosse legali di apertura, 16 permettono ai difensori una cattura immediata (per esempio d9–d6); e8–c8 non è tra queste.', 'Verified by the engine: of the 80 legal opening moves, 16 let the defenders capture at once (for example d9–d6); e8–c8 is not one of them.'],
+   v: ['Il conteggio vale per le regole a bordo con castello ostile (Linneo, Bannerlord). Con Pilarski e Bologna le caselle ostili sono diverse e il numero può cambiare.', 'The count holds for edge rules with a hostile castle (Linnaeus, Bannerlord). Under Pilarski and Bologna the hostile squares differ and the number may change.'] },
+ { id: 'o5', ph: 'open', rules: 'linneo', start: 'initial', setup: ['e8-c8'],
+   t: ['Apertura: la prima risposta dei difensori', 'Opening: the defenders\' first reply'],
+   i: ['Dopo e8–c8 i difensori hanno 55 risposte legali. Molte lasciano un pezzo che gli attaccanti possono catturare subito. Una risposta prudente muove un pezzo esterno lungo la propria linea.',
+       'After e8–c8 the defenders have 55 legal replies. Many leave a piece the attackers can capture at once. A prudent reply moves an outer piece along its own line.'],
+   s: [ { m: 'c5-c3', say: ['Il pezzo esterno di c5 scende a c3 lungo la sua colonna: non lascia nessun difensore catturabile e i quattro pezzi interni restano intorno al re.', 'The outer piece on c5 drops to c3 along its column: it leaves no defender capturable and the four inner pieces stay around the king.'], ex: ['hammer'] } ],
+   k: [{ k: 'unsafeReplies', after: -1, x: 29, y: 55 }, { k: 'safeStep', step: 0 }],
+   c: ['Verificato dal motore: delle 55 risposte legali, 29 permettono agli attaccanti una cattura immediata; c5–c3 non è tra queste.', 'Verified by the engine: of the 55 legal replies, 29 let the attackers capture at once; c5–c3 is not one of them.'],
+   v: ['«Non regalare pezzi» è un criterio minimo, non una teoria dell\'apertura: il motore non mostra una risposta nettamente migliore delle altre senza catture.', '“Do not give pieces away” is a minimum criterion, not opening theory: the engine does not show a clearly better reply among the ones without captures.'] },
+ { id: 'o6', ph: 'open', rules: 'pilarski', start: 'initial', setup: [],
+   t: ['Apertura con gli angoli (Pilarski): i pezzi non si fermano negli angoli', 'Opening with corners (Pilarski): pieces cannot stop on corners'],
+   i: ['Con le regole di Pilarski solo il re può fermarsi negli angoli. Gli attaccanti in d9, f9, d1, f1, a4, a6, i4 e i6 non possono scorrere fino all\'angolo, e le prime mosse legali sono 72 invece di 80.',
+       'Under Pilarski\'s rules only the king may stop on a corner. The attackers on d9, f9, d1, f1, a4, a6, i4 and i6 cannot slide to the corner, so there are 72 legal first moves instead of 80.'],
+   s: [ { m: 'd9-b9', say: ['Il pezzo di d9 può arrivare fino a b9 ma non ad a9: è il passo con cui ci si avvicina all\'angolo senza occuparlo.', 'The piece on d9 can go as far as b9 but not to a9: it is the step that gets close to the corner without occupying it.'], ex: [] } ],
+   k: [{ k: 'legalCount', n: 72, vs: { linneo: 80 }, illegal: ['d9-a9'] }],
+   c: ['Verificato dal motore: 72 mosse legali di apertura con le regole di Pilarski contro 80 con quelle di Linneo; d9–a9 è illegale.', 'Verified by the engine: 72 legal opening moves under Pilarski\'s rules against 80 under Linnaeus\'; d9–a9 is illegal.'],
+   v: ['Le caselle d\'angolo sono ostili a entrambe le parti: un pezzo accanto all\'angolo può essere catturato tra l\'angolo e un nemico.', 'The corner squares are hostile to both sides: a piece next to a corner can be captured between the corner and an enemy.'] },
+ { id: 'e6', ph: 'end', rules: 'bologna', start: 'A b9 a7|K a9', turn: 0, setup: [],
+   t: ['Finale: chi non può muovere perde (Cittadelle)', 'Endgame: the side that cannot move loses (Citadels)'],
+   i: ['Con le regole di Bologna chi non ha mosse perde subito. Il re in a9 ha solo due case libere vicine: se si chiudono entrambe e non restano altri difensori, i difensori non possono muovere.',
+       'Under the Bologna rules the side without a move loses at once. The king on a9 has only two free neighbouring squares: if both are closed and no other defender is left, the defenders cannot move.'],
+   s: [ { m: 'a7-a8', say: ['L\'attaccante chiude a8: il re non può più muovere, perché b9 è già occupata, e non ci sono altri difensori.', 'The attacker closes a8: the king can no longer move, because b9 is already occupied, and there are no other defenders.'], ex: [] } ],
+   k: [{ k: 'over', winner: 0, why: 'nomove' }, { k: 'over', winner: 'draw', why: 'stalemate', rules: 'linneo' }],
+   c: ['Verificato dal motore: con le regole di Bologna la partita finisce con la vittoria degli attaccanti; la stessa posizione con le regole di Linneo finisce patta.', 'Verified by the engine: under the Bologna rules the game ends with an Attacker win; the same position under Linnaeus\' rules ends in a draw.'],
+   v: ['È una posizione costruita per mostrare la regola: in una partita vera i difensori hanno quasi sempre altri pezzi da muovere.', 'It is a constructed position to show the rule: in a real game the defenders almost always have other pieces to move.'] },
+];
+/* ---------- costruzione e verifica ---------- */
+function lessonBuild(X, L) {
+  X.useRules(L.rules);
+  const s = X.newState({ rules: L.rules });
+  if (L.start !== 'initial') {
+    s.b.fill(0);
+    L.start.split('|').forEach(p => { const a = p.trim().split(/\s+/), v = { A: 1, D: 2, K: 3 }[a[0]]; a.slice(1).forEach(q => { s.b[X.idx(q)] = v; }); });
+    s.turn = L.turn; s.hist = {}; s.hist[X.posKey(s.b, s.turn)] = 1; s.phase = 'move'; s.moves = X.legalMoves(s);
+  }
+  (L.setup || []).forEach(m => { const f = X.idx(m.slice(0, 2)), t = X.idx(m.slice(3)), mv = s.moves.find(x => x.f === f && x.t === t); if (!mv) throw new Error('setup illegale ' + L.id + ' ' + m); X.applyMove(s, mv); });
+  return s;
+}
+function lessonMove(X, s, m) {
+  const f = X.idx(m.slice(0, 2)), t = X.idx(m.slice(3)), mv = s.moves.find(x => x.f === f && x.t === t);
+  if (!mv) throw new Error('mossa illegale ' + m);
+  return mv;
+}
+/* raggiungibilità del re ignorando le catture: BFS con i soli attaccanti come ostacoli */
+function kingReachWin(X, rid, b0) {
+  X.useRules(rid); const R = X.RS[rid], b = Int8Array.from(b0);
+  for (let i = 0; i < 81; i++) if (b[i] === 2) b[i] = 0;
+  const k0 = X.kingPos(b); b[k0] = 0; const seen = new Set([k0]), q = [k0];
+  while (q.length) {
+    const k = q.pop(); b[k] = 3;
+    const ms = X.genMoves(b, 1).filter(m => ((m / 81) | 0) === k); b[k] = 0;
+    for (const m of ms) { const t = m % 81; if (R.winA[t]) return true; if (!seen.has(t)) { seen.add(t); q.push(t); } }
+  }
+  return false;
+}
+const WALL = { NW: ['d9', 'c8', 'b7', 'a6'] };
+/* verifica: restituisce {ok, checks:[{k,ok,info}], nums:{X,Y}} */
+function verifyLesson(X, L) {
+  const out = { ok: true, checks: [], nums: {}, explains: [] };
+  const fail = (k, info) => { out.ok = false; out.checks.push({ k, ok: false, info }); };
+  const pass = (k, info) => out.checks.push({ k, ok: true, info });
+  let s;
+  try { s = lessonBuild(X, L); } catch (e) { fail('build', e.message); return out; }
+  X.useRules(L.rules);
+  const states = [X.cloneState(s)];  /* stati prima di ogni mossa e dopo l'ultima */
+  const start = X.cloneState(s);
+  const caps = [];
+  for (let i = 0; i < L.s.length; i++) {
+    let mv; try { mv = lessonMove(X, s, L.s[i].m); } catch (e) { fail('mossa', e.message); return out; }
+    const ex = X.explain(s, mv); out.explains.push(ex);
+    const codes = ex.reasons.map(r => r.c);
+    (L.s[i].ex || []).forEach(c => { if (!codes.includes(c)) fail('motivo', L.s[i].m + ' atteso ' + c + ', trovato ' + codes.join(',')); });
+    X.applyMove(s, mv); caps.push(s.fx.caps.length); states.push(X.cloneState(s));
+  }
+  (L.k || []).forEach(c => {
+    X.useRules(L.rules);
+    if (c.k === 'cordon') { const ok = c.sq.every(q => s.b[X.idx(q)] === 1); ok ? pass('cordon') : fail('cordon'); }
+    else if (c.k === 'captures') { const n = caps.reduce((a, b) => a + b, 0); n === c.n ? pass('captures', n) : fail('captures', n); }
+    else if (c.k === 'empty') { c.sq.every(q => s.b[X.idx(q)] === 0) ? pass('empty') : fail('empty'); }
+    else if (c.k === 'wallCount') {
+      const cnt = b => WALL.NW.filter(q => b[X.idx(q)] === 1).length;
+      cnt(start.b) === c.before && cnt(s.b) === c.after ? pass('wallCount') : fail('wallCount', cnt(start.b) + '->' + cnt(s.b));
+    }
+    else if (c.k === 'kingThreatBefore') { const b = Int8Array.from(start.b); X.attackersCanCaptureKing(b) ? pass('kingThreatBefore') : fail('kingThreatBefore'); }
+    else if (c.k === 'kingThreatAfter') { const b = Int8Array.from(states[c.after + 1].b); X.attackersCanCaptureKing(b) ? pass('kingThreatAfter') : fail('kingThreatAfter'); }
+    else if (c.k === 'kingSafeAfter') { const b = Int8Array.from(states[c.after + 1].b); !X.attackersCanCaptureKing(b) ? pass('kingSafeAfter') : fail('kingSafeAfter'); }
+    else if (c.k === 'winIn') { const b = Int8Array.from(start.b); X.canWin(b, start.turn === 1 ? 1 : 0, c.n, L.rules) ? pass('winIn', c.n) : fail('winIn', c.n); }
+    else if (c.k === 'unstoppable') { const b = Int8Array.from(states[c.after + 1].b); X.useRules(L.rules); X.canWin(b, 0, 1) ? pass('unstoppable') : fail('unstoppable'); }
+    else if (c.k === 'clearEdge') { X.useRules(L.rules); X.clearEdgeH(Int8Array.from(start.b)) ? pass('clearEdge') : fail('clearEdge'); }
+    else if (c.k === 'safeEdge') { X.useRules(L.rules); X.safeEdgeH(Int8Array.from(start.b)) ? pass('safeEdge') : fail('safeEdge'); }
+    else if (c.k === 'sealed') { const r = !kingReachWin(X, c.rules, s.b); r ? pass('sealed') : fail('sealed'); }
+    else if (c.k === 'notSealed') { const r = kingReachWin(X, c.rules, s.b); r ? pass('notSealed') : fail('notSealed'); }
+    else if (c.k === 'unsafeFirst' || c.k === 'unsafeReplies') {
+      const base = c.k === 'unsafeFirst' ? start : states[c.after < 0 ? 0 : c.after + 1]; X.useRules(L.rules);
+      const bs = c.k === 'unsafeReplies' ? states[states.length - 1 - 0] : base; void bs;
+      const from = c.k === 'unsafeFirst' ? start : (L.setup && L.setup.length ? start : states[0]);
+      let bad = 0; const n = from.moves.length;
+      for (const m of from.moves) { const q = X.cloneState(from); q.moves = from.moves; X.applyMove(q, m); if (q.moves.some(x => x.n > 0)) bad++; }
+      out.nums.X = bad; out.nums.Y = n; (bad === c.x && n === c.y) ? pass(c.k, bad + '/' + n) : fail(c.k, bad + '/' + n + ' atteso ' + c.x + '/' + c.y);
+    }
+    else if (c.k === 'safeStep') {
+      const before = states[c.step], mvv = lessonMove(X, before, L.s[c.step].m), q = X.cloneState(before); q.moves = before.moves; X.applyMove(q, mvv);
+      !q.moves.some(x => x.n > 0) ? pass('safeStep') : fail('safeStep');
+    }
+    else if (c.k === 'legalCount') {
+      const parts = [];
+      let ok = true;
+      const sL = lessonBuild(X, L); X.useRules(L.rules); if (sL.moves.length !== c.n) { ok = false; parts.push('n=' + sL.moves.length); }
+      for (const r of Object.keys(c.vs || {})) { const o = X.newState({ rules: r }); if (o.moves.length !== c.vs[r]) { ok = false; parts.push(r + '=' + o.moves.length); } }
+      X.useRules(L.rules);
+      (c.illegal || []).forEach(m => { const f = X.idx(m.slice(0, 2)), t = X.idx(m.slice(3)); if (sL.moves.find(x => x.f === f && x.t === t)) { ok = false; parts.push('legale ' + m); } });
+      ok ? pass('legalCount') : fail('legalCount', parts.join(' '));
+    }
+    else if (c.k === 'over') {
+      let q;
+      if (c.rules && c.rules !== L.rules) { q = lessonBuild(X, Object.assign({}, L, { rules: c.rules })); L.s.forEach(st => { const mv = lessonMove(X, q, st.m); X.applyMove(q, mv); }); }
+      else q = s;
+      X.useRules(c.rules || L.rules);
+      (q.phase === 'over' && q.winner === c.winner && q.over === c.why) ? pass('over', q.winner + '/' + q.over) : fail('over', q.phase + ' ' + q.winner + '/' + q.over);
+    }
+    else if (c.k === 'blockers') {
+      /* posizione dopo la mossa dei difensori (indice c.after-1): quante risposte degli attaccanti fermano il re? */
+      const st = states[c.after]; X.useRules(L.rules);
+      const b = Int8Array.from(st.b), ms = X.genMoves(b, 0); let good = 0;
+      for (const m of ms) { const u = X.make(b, m); const stop = X.hasKingCap(u) || X.kingLines(b) === 0; X.unmake(b, u); if (stop) good++; }
+      out.nums.X = good; out.nums.Y = ms.length; good > 0 && good < ms.length ? pass('blockers', good + '/' + ms.length) : fail('blockers', good + '/' + ms.length);
+    }
+  });
+  return out;
+}
+
+/* ===== Tutorial: partita guidata (computer contro computer) e lezioni ===== */
+const XB={useRules,newState,idx,posKey,legalMoves,applyMove,cloneState,explain,attackersCanCaptureKing,canWin,clearEdgeH,safeEdgeH,kingPos,genMoves,make,unmake,hasKingCap,kingLines,RS};
+const cvcBd=Board($('#cvcBoard'),{tut:true});
+const T={open:false,tab:'demo',rid:'linneo',st:null,snaps:[],recs:[],vi:0,paused:true,gen:0,speed:2500,bub:true,game:0,lv:[2,2],busy:false,lesson:null,verify:null,timer:0,lastRid:null};
+const LVN=new Proxy({},{get:(o,k)=>+k===3?_('Difficile','Hard'):_('Medio','Medium')});
+const PH={open:()=>_('Apertura','Opening'),mid:()=>_('Medio gioco','Middle game'),end:()=>_('Finale','Endgame')};
+const sqs=a=>(a||[]).map(sq).join(', ');
+const nm=p=>p===0?_('Gli Attaccanti','The Attackers'):_('I Difensori','The Defenders');
+/* testo di un motivo, nella lingua corrente */
+function reasonText(r,p){
+  const S=sqs(r.sq);
+  switch(r.c){
+    case 'win_edge':return _('Il re arriva su '+sq(r.to)+', una casa del bordo: i Difensori vincono.','The king reaches '+sq(r.to)+', an edge square: the Defenders win.');
+    case 'win_corner':return _('Il re arriva nell\'angolo '+sq(r.to)+': i Difensori vincono.','The king reaches the corner '+sq(r.to)+': the Defenders win.');
+    case 'win_capture':return _('Il re in '+sq(r.at)+' è circondato come prevedono le regole: gli Attaccanti vincono.','The king on '+sq(r.at)+' is surrounded as the rules require: the Attackers win.');
+    case 'capture':return r.n>1?_('Cattura '+r.n+' pezzi ('+S+'): il materiale conta, perché ogni pezzo in meno toglie una difesa o un blocco.','Captures '+r.n+' pieces ('+S+'): material matters, because each piece lost removes a defender or a blocker.'):_('Cattura il pezzo in '+S+': un pezzo in meno toglie una difesa o un blocco.','Captures the piece on '+S+': one piece fewer removes a defender or a blocker.');
+    case 'threat_capture':return _('Minaccia di catturare '+S+' alla mossa successiva, portando un pezzo sul lato opposto.','Threatens to capture '+S+' next move by bringing a piece to the opposite side.');
+    case 'escape':return _('Il pezzo era minacciato: lo sposta in salvo ('+sq(r.from)+' → '+sq(r.to)+').','The piece was under threat: it moves to safety ('+sq(r.from)+' → '+sq(r.to)+').');
+    case 'save_piece':return _('Toglie la minaccia di cattura sul pezzo in '+S+'.','Removes the capture threat against the piece on '+S+'.');
+    case 'block_line':return _('Chiude con una pedina in '+sq(r.to)+' una via libera del re'+(r.left?': ne restano '+r.left+'.':': ora il re non ha più vie libere.'),'Closes a free line of the king with a piece on '+sq(r.to)+(r.left?': '+r.left+' remain.':': the king no longer has a free line.'));
+    case 'stop_fork':return _('Toglie al re le case da cui avrebbe due vie libere contemporanee ('+S+'): con due vie gli Attaccanti non riuscirebbero a chiuderle entrambe.','Takes away the squares from which the king would have two free lines at once ('+S+'): with two lines the Attackers could not close both.');
+    case 'cordon':return _('Porta una pedina su una casa delle diagonali vicino agli angoli ('+sq(r.to)+'): ne occupa '+r.n+'. Una diagonale piena non si attraversa con mosse ortogonali.','Brings a piece to a square on the diagonals beside the corners ('+sq(r.to)+'): it holds '+r.n+'. A full diagonal cannot be crossed with orthogonal moves.');
+    case 'threat_king':return _('Minaccia di catturare il re alla mossa successiva.','Threatens to capture the king on the next move.');
+    case 'close_king':return _('Stringe il re: ora '+(r.n===1?'lo tocca 1 attaccante.':'lo toccano '+r.n+' attaccanti.'),'Tightens around the king: '+(r.n===1?'1 attacker now touches it.':r.n+' attackers now touch it.'));
+    case 'king_flee':return _('Il re esce da una casa dove poteva essere catturato.','The king leaves a square where it could be captured.');
+    case 'king_risk':return _('Mossa rischiosa: dopo di essa il re potrebbe essere catturato.','Risky move: afterwards the king could be captured.');
+    case 'king_step':return _('Il re lascia il castello: fuori è più vulnerabile, ma resta al riparo dalla cattura.','The king leaves the castle: outside it is more vulnerable, but it is still safe from capture.');
+    case 'protect_king':return _('Elimina la minaccia di cattura sul re.','Removes the threat of capturing the king.');
+    case 'forced_win':return _('Apre '+r.lines+' vie libere al re: gli Attaccanti non hanno una risposta che le chiuda tutte, la partita è decisa.','Opens '+r.lines+' free lines for the king: no Attacker reply closes them all, the game is decided.');
+    case 'king_open_line':return _('Apre una via libera verso il bordo: gli Attaccanti devono rispondere subito.','Opens a free line to the edge: the Attackers must answer at once.');
+    case 'prepare_fork':return _('Prepara una doppia via: dalle case '+S+' il re avrebbe due vie libere insieme.','Prepares a double line: from '+S+' the king would have two free lines at once.');
+    case 'hammer':return _('Muove un pezzo esterno (il «martello») e lascia intatto l\'anello interno intorno al re (l\'«incudine»).','Moves an outer piece (the “hammer”) and leaves the inner ring around the king (the “anvil”) intact.');
+    case 'anvil_break':return _('Muove un pezzo dell\'anello interno: il re perde una protezione ravvicinata.','Moves a piece of the inner ring: the king loses a close protector.');
+    case 'develop':return _('Sviluppa un pezzo dal proprio accampamento verso il centro della tavola.','Develops a piece from its camp towards the middle of the board.');
+    case 'mobility':return _('Aumenta di '+r.gain+' le mosse a disposizione del proprio schieramento.','Raises the mobility of this side by '+r.gain+' moves.');
+    default:return _('Mossa di attesa: non cambia le minacce, ma tiene la formazione.','Waiting move: it changes no threats but keeps the formation.');
+  }
+}
+const phaseText=ph=>({open:_('Apertura: i pezzi si schierano e nessuno è ancora stato catturato.','Opening: the pieces take position and nothing has been captured yet.'),mid:_('Medio gioco: le formazioni si toccano e si cercano catture e blocchi.','Middle game: the formations meet and both sides look for captures and blocks.'),end:_('Finale: il re ha vie libere o restano pochi pezzi.','Endgame: the king has free lines or few pieces are left.')}[ph]);
+/* barra di valutazione: valutazione euristica del motore dal lato dei difensori (non un risultato) */
+function evalPct(s){useRules(s.rid);const b=s.b;if(s.phase==='over')return s.winner===1?100:s.winner===0?0:50;const e=evalPos(b,s.turn,0)-evalPos(newState({rules:s.rid}).b,0,0);return Math.round(50+50*Math.tanh(e/900));}
+/* frecce e riquadri sulla tavola */
+function arrowSVG(f,t,p){
+  const a=cxy(f),b=cxy(t),dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,s=44,x1=a.x+ux*s,y1=a.y+uy*s,x2=b.x-ux*(s-4),y2=b.y-uy*(s-4),h=26;
+  const col=p===0?'#e0583a':'#f5ecc9',ed=p===0?'#3b1209':'#3a2d12';
+  const hx=x2-ux*h,hy=y2-uy*h,nx=-uy,ny=ux;
+  return '<g pointer-events="none"><path d="M'+x1+' '+y1+'L'+hx+' '+hy+'" stroke="'+ed+'" stroke-width="22" stroke-linecap="round"/><path d="M'+x1+' '+y1+'L'+hx+' '+hy+'" stroke="'+col+'" stroke-width="12" stroke-linecap="round"/>'
+   +'<path d="M'+x2+' '+y2+'L'+(hx+nx*20)+' '+(hy+ny*20)+'L'+(hx-nx*20)+' '+(hy-ny*20)+'Z" fill="'+col+'" stroke="'+ed+'" stroke-width="6" stroke-linejoin="round"/></g>';
+}
+const ring=(i,col)=>{const p=cxy(i);return '<circle cx="'+p.x+'" cy="'+p.y+'" r="52" fill="none" stroke="'+col+'" stroke-width="7" stroke-dasharray="14 9" pointer-events="none"/>';};
+function decorate(s,mv,p,rs){
+  let h='';
+  if(mv)h+=arrowSVG(mv.f,mv.t,p);
+  (rs||[]).forEach(r=>{
+    if((r.c==='threat_capture'||r.c==='capture')&&r.sq)r.sq.forEach(i=>{h+=ring(i,'#d33a1d');});
+    if(r.c==='prepare_fork'&&r.sq)r.sq.forEach(i=>{h+=ring(i,'#2fa7c9');});
+    if(r.c==='cordon'&&mv)h+=ring(mv.t,'#f0b36a');
+  });
+  cvcBd.ann(h);
+}
+function showLanes(s){cvcBd.clearCls();useRules(s.rid);kingLineSquares(s.b).forEach(i=>cvcBd.cls(i,'lane',1));if(s.last){cvcBd.cls(s.last.f,'last',1);cvcBd.cls(s.last.t,'last',1);}}
+/* ---------- scheda informazioni ---------- */
+function infoHTML(s,ph){
+  const e=evalPct(s);
+  return '<div class="cvc-ph"><b>'+_('Fase','Phase')+'</b> <span class="chip">'+(PH[ph]?PH[ph]():'')+'</span><p>'+(phaseText(ph)||'')+'</p></div>'
+   +'<div class="cvc-ev"><b>'+_('Valutazione del motore','Engine evaluation')+'</b><div class="cvc-bar" role="img" aria-label="'+_('Valutazione: '+e+' su 100 a favore dei Difensori','Evaluation: '+e+' out of 100 in favour of the Defenders')+'"><i style="width:'+(100-e)+'%"></i></div><div class="cvc-bl"><span>'+_('Attaccanti','Attackers')+'</span><span>'+_('Difensori','Defenders')+'</span></div><small>'+_('Stima euristica della posizione, non un risultato.','Heuristic estimate of the position, not a result.')+'</small></div>'
+   +'<div class="cvc-cnt">'+_('Pezzi','Pieces')+': '+_('Attaccanti','Attackers')+' '+countOf(s.b,1)+' · '+_('Difensori','Defenders')+' '+(countOf(s.b,2)+(kingPos(s.b)>=0?1:0))+'</div>';
+}
+function bubbleHTML(rec){
+  if(!rec)return '';
+  const head='<div class="cvc-bh"><span class="cvc-bp p'+rec.p+'">'+nm(rec.p)+'</span> <b>'+sq(rec.mv.f)+'–'+sq(rec.mv.t)+'</b>'+(rec.phase?' <span class="chip">'+PH[rec.phase]()+'</span>':'')+'</div>';
+  let body='';
+  if(rec.say)body+='<p>'+rec.say()+'</p>';
+  const rs=rec.reasons.filter(r=>!(rec.say&&(r.c==='quiet')));
+  if(!rec.say||rs.length)body+='<ul>'+rs.map(r=>'<li>'+reasonText(r,rec.p)+'</li>').join('')+'</ul>';
+  if(rec.alt)body+='<p class="cvc-alt">'+rec.alt()+'</p>';
+  return head+body;
+}
+function altText(s,mv,level){
+  try{
+    const r=rank(s,level===3?3:2,{ms:level===3?500:0}),cur=r.find(x=>s.moves[x.i].f===mv.f&&s.moves[x.i].t===mv.t);
+    if(!cur||s.moves.length<2)return null;
+    const lose=r.filter(x=>x.v<=-80000).length,n=s.moves.length;
+    if(cur.v>=80000)return ()=>_('Per il motore questa mossa porta a una vittoria entro pochi passi (ricerca a '+(level===3?'più':'3')+' semimosse).','According to the engine this move leads to a win within a few plies.');
+    if(cur.v>-80000&&lose>0&&lose>=n-1)return ()=>_('Tra le '+n+' mosse possibili è l\'unica che non perde in modo forzato entro la profondità di ricerca.','Of the '+n+' possible moves it is the only one that does not lose by force within the search depth.');
+    if(cur.v>-80000&&lose>0)return ()=>_('Delle '+n+' mosse possibili, '+lose+' perdono in modo forzato entro la profondità di ricerca: questa no.','Of the '+n+' possible moves, '+lose+' lose by force within the search depth: this one does not.');
+  }catch(e){}
+  return null;
+}
+/* ---------- fumetto e registro ---------- */
+function showBubble(rec){
+  const bb=$('#cvcBubble');
+  if(!T.bub||!rec){bb.hidden=true;return;}
+  bb.innerHTML=bubbleHTML(rec);bb.hidden=false;bb.classList.remove('pop');void bb.offsetWidth;if(!calm)bb.classList.add('pop');
+}
+function logHTML(){
+  const L=$('#cvcLog');
+  L.innerHTML=T.recs.map((r,k)=>'<li'+(k===T.vi-1?' aria-current="step"':'')+'><b>'+Math.ceil((k+1)/2)+'.</b> <span class="cvc-bp p'+r.p+'">'+(r.p===0?'A':'D')+'</span> '+sq(r.mv.f)+'–'+sq(r.mv.t)+' <span class="cvc-lr">'+(r.reasons[0]?reasonText(r.reasons[0],r.p).split(/[.:;]/)[0]:'')+'</span></li>').join('');
+  const cur=L.querySelector('[aria-current]');if(cur)cur.scrollIntoView({block:'nearest'});
+}
+function viewAt(vi,movePending){
+  T.vi=vi;const s=T.snaps[vi];
+  cvcBd.clearCls();cvcBd.sync(s.b);
+  useRules(s.rid);
+  if(cfg.lane)kingLineSquares(s.b).forEach(i=>cvcBd.cls(i,'lane',1));
+  if(s.last){cvcBd.cls(s.last.f,'last',1);cvcBd.cls(s.last.t,'last',1);}
+  const rec=movePending?T.pending:T.recs[vi-1];
+  if(rec){decorate(s,rec.mv,rec.p,rec.reasons);}else cvcBd.ann('');
+  showBubble(rec||T.introRec);
+  const ph=(rec&&!movePending&&rec.phase)||phaseOf(s);
+  $('#cvcInfo').innerHTML=infoHTML(s,movePending&&T.pending?T.pending.phase:ph);
+  logHTML();
+  $('#cvcPrev').disabled=vi<=0;
+  const atEnd=vi>=T.snaps.length-1&&T.finished;
+  $('#cvcStep').disabled=atEnd;
+}
+/* ---------- provider delle mosse: partita dimostrativa e lezioni ---------- */
+function nextDemoRec(s){
+  const lv=T.lv[s.turn],i=cpuChoose(s,lv,Math.random,lv===3?{ms:900}:null),mv=s.moves[i],ex=explain(s,mv);
+  return {p:s.turn,mv:{f:mv.f,t:mv.t},reasons:ex.reasons,phase:ex.phase,alt:altText(s,mv,lv)};
+}
+function nextLessonRec(s,k){
+  const L=T.lesson,step=L.s[k],f=idx(step.m.slice(0,2)),t=idx(step.m.slice(3)),mv=s.moves.find(x=>x.f===f&&x.t===t),ex=explain(s,mv);
+  return {p:s.turn,mv:{f,t},reasons:ex.reasons.filter(r=>r.c!=='quiet'),phase:ex.phase,say:()=>step.say[LANG==='en'?1:0]};
+}
+function lessonText(){
+  const L=T.lesson,v=T.verify,i=LANG==='en'?1:0;
+  let c=L.c[i];if(v&&v.nums)c=c.replace('{X}',v.nums.X).replace('{Y}',v.nums.Y);
+  return '<h3>'+L.t[i]+'</h3><p class="cvc-rs">'+ruleName(L.rules)+'</p><p>'+L.i[i]+'</p>';
+}
+function lessonEndHTML(){
+  const L=T.lesson,v=T.verify,i=LANG==='en'?1:0;
+  let c=L.c[i];if(v&&v.nums)c=c.replace('{X}',v.nums.X).replace('{Y}',v.nums.Y);
+  return '<div class="cvc-bh"><b>'+_('Conclusione','Conclusion')+'</b>'+(v&&v.ok?' <span class="chip ok"><span class="g">✓</span> '+_('verificato dal motore','verified by the engine')+'</span>':' <span class="chip no"><span class="g">!</span> '+_('verifica non riuscita','verification failed')+'</span>')+'</div><p>'+c+'</p>'+(L.v?'<p class="cvc-alt">'+L.v[i]+'</p>':'');
+}
+/* ---------- ciclo di gioco ---------- */
+function stopTimer(){clearTimeout(T.timer);T.timer=0;}
+function schedule(ms){stopTimer();const g=T.gen;T.timer=setTimeout(()=>{if(g===T.gen&&!T.paused)advance(false);},ms);}
+async function advance(manual){
+  if(T.busy)return;
+  const g=T.gen;
+  if(T.vi<T.snaps.length-1){viewAt(T.vi+1,false);if(T.vi>=T.snaps.length-1){const l=T.snaps[T.vi];if(l.phase==='over')endNotice();else if(T.lesson&&T.vi>=T.lesson.s.length)lessonEnd();else if(!T.paused)schedule(T.speed);}else if(!T.paused)schedule(T.speed);return;}
+  if(T.finished){return;}
+  const s=T.snaps[T.vi];
+  if(s.phase==='over'){endNotice();return;}
+  /* lezione: fine dei passi */
+  if(T.lesson&&T.vi>=T.lesson.s.length){lessonEnd();return;}
+  T.busy=true;
+  const rec=T.lesson?nextLessonRec(s,T.vi):nextDemoRec(s);
+  T.pending=rec;
+  cvcBd.clearCls();viewAt(T.vi,true);
+  showBubble(rec);
+  const pre=calm?0:350;
+  await wait(pre);if(g!==T.gen){T.busy=false;return;}
+  const ns=cloneState(s);ns.moves=s.moves;
+  const mv=s.moves.find(x=>x.f===rec.mv.f&&x.t===rec.mv.t);
+  applyMove(ns,mv);
+  cvcBd.clearCls();cvcBd.ann('');
+  await cvcBd.animate(ns.fx,()=>g===T.gen,(k,fx)=>{if(k==='land')AU[fx.pc===3?'king':'move']();else if(k==='capture')AU.capture(fx.caps.length);});
+  if(g!==T.gen){T.busy=false;return;}
+  T.recs.push(rec);T.snaps.push(ns);T.pending=null;T.busy=false;
+  viewAt(T.snaps.length-1,false);
+  if(ns.phase==='over'){endNotice();return;}
+  if(T.lesson&&T.vi>=T.lesson.s.length){lessonEnd();return;}
+}
+function overText(s){
+  if(s.winner==='draw')return {repeat:_('La posizione si è ripetuta: la partita è patta.','The position repeated: the game is drawn.'),limit:_('Raggiunto il limite di 100 mosse: la partita è patta.','The 100-move limit is reached: the game is drawn.'),stalemate:_('Chi era di turno non poteva muovere: la partita è patta.','The side to move could not move: the game is drawn.')}[s.over]||_('Partita patta.','The game is drawn.');
+  return {edge:_('Il re ha raggiunto il bordo: vincono i Difensori.','The king reached the edge: the Defenders win.'),corner:_('Il re ha raggiunto un angolo: vincono i Difensori.','The king reached a corner: the Defenders win.'),king:_('Il re è stato catturato: vincono gli Attaccanti.','The king was captured: the Attackers win.'),nomove:_('Chi era di turno non poteva muovere e perde: vince l\'altro lato.','The side to move could not move and loses: the other side wins.')}[s.over]||'';
+}
+function endNotice(){
+  T.finished=true;stopTimer();const s=T.snaps[T.snaps.length-1];
+  if(T.lesson){lessonEnd(true);return;}
+  const bb=$('#cvcBubble');bb.hidden=false;
+  bb.innerHTML='<div class="cvc-bh"><b>'+_('Fine della partita','End of the game')+'</b></div><p>'+overText(s)+'</p><p class="cvc-alt">'+_('Premi «Ricomincia» per vedere un\'altra partita: i livelli del computer cambiano a rotazione.','Press “Restart” to watch another game: the computer levels rotate.')+'</p>';
+  $('#cvcStep').disabled=T.vi>=T.snaps.length-1;
+}
+function lessonEnd(){
+  T.finished=true;stopTimer();
+  const bb=$('#cvcBubble');bb.hidden=false;bb.innerHTML=lessonEndHTML();bb.classList.remove('pop');void bb.offsetWidth;if(!calm)bb.classList.add('pop');
+  cvcBd.ann('');
+  $('#cvcStep').disabled=true;
+}
+/* ---------- avvio ---------- */
+function startDemo(){
+  T.gen++;stopTimer();T.busy=false;T.finished=false;T.lesson=null;T.verify=null;
+  const rid=$('#cvcRule')?$('#cvcRule').value:T.rid;T.rid=rid;
+  const rot=[[2,2],[3,2],[2,3]];T.lv=rot[T.game%3];T.game++;
+  const s=newState({rules:rid});T.st=s;T.snaps=[s];T.recs=[];T.vi=0;T.pending=null;
+  cvcBd.rules(rid);cvcBd.coords(cfg.coord);cvcBd.sync(s.b);
+  T.introRec=null;
+  $('#cvcLog').innerHTML='';
+  setupHTML();
+  const bb=$('#cvcBubble');bb.hidden=false;
+  bb.innerHTML='<div class="cvc-bh"><b>'+_('Partita dimostrativa','Demonstration game')+'</b> <span class="chip">'+ruleName(rid)+'</span></div><p>'+ruleDesc(rid)+'</p><p>'+_('Il computer gioca contro se stesso. Gli Attaccanti giocano al livello '+LVN[T.lv[0]]+', i Difensori al livello '+LVN[T.lv[1]]+'. Prima di ogni mossa compare qui il motivo della scelta. Premi «Mossa successiva» (o la freccia destra) per avanzare: la partita non procede da sola.','The computer plays against itself. The Attackers play at '+LVN[T.lv[0]]+' level, the Defenders at '+LVN[T.lv[1]]+' level. Before each move the reason for the choice appears here. Press “Next move” (or the right arrow key) to advance: the game never moves on its own.')+'</p>';
+  T.introHTML=bb.innerHTML;
+  $('#cvcInfo').innerHTML=infoHTML(s,'open');
+  $('#cvcPrev').disabled=true;$('#cvcStep').disabled=false;
+}
+function startLesson(id){
+  const L=LESSONS.find(x=>x.id===id);if(!L)return;
+  T.gen++;stopTimer();T.busy=false;T.finished=false;T.lesson=L;T.rid=L.rules;
+  T.verify=verifyLesson(XB,L);
+  const s=lessonBuild(XB,L);T.st=s;T.snaps=[s];T.recs=[];T.vi=0;T.pending=null;
+  cvcBd.rules(L.rules);cvcBd.coords(cfg.coord);cvcBd.sync(s.b);cvcBd.clearCls();cvcBd.ann('');
+  const bb=$('#cvcBubble');bb.hidden=false;bb.innerHTML=lessonText();
+  T.introHTML=bb.innerHTML;
+  lessonListHTML();
+  $('#cvcLog').innerHTML='';
+  $('#cvcInfo').innerHTML=infoHTML(s,L.ph);
+  $('#cvcPrev').disabled=true;$('#cvcStep').disabled=false;
+}
+function setupHTML(){
+  const el=$('#cvcSetup');
+  el.innerHTML='<label class="cvc-sel"><span>'+_('Insieme di regole','Rule set')+'</span><select id="cvcRule">'+RULE_IDS.map(r=>'<option value="'+r+'"'+(r===T.rid?' selected':'')+'>'+ruleName(r)+'</option>').join('')+'</select></label>';
+  $('#cvcRule').addEventListener('change',()=>{T.rid=$('#cvcRule').value;startDemo();});
+}
+function lessonListHTML(){
+  const el=$('#cvcSetup');
+  const grp={open:_('Aperture','Openings'),mid:_('Medio gioco','Middle game'),end:_('Finali','Endgames')};
+  let h='<div class="cvc-les">';
+  ['open','mid','end'].forEach(ph=>{h+='<h4>'+grp[ph]+'</h4><ul>';LESSONS.filter(l=>l.ph===ph).forEach(l=>{h+='<li><button type="button" data-les="'+l.id+'"'+(T.lesson&&T.lesson.id===l.id?' aria-current="true"':'')+'>'+l.t[LANG==='en'?1:0]+' <small>'+ruleName(l.rules)+'</small></button></li>';});h+='</ul>';});
+  el.innerHTML=h+'</div>';
+}
+function setTab(t){
+  T.tab=t;
+  $('#cvcTabDemo').setAttribute('aria-selected',t==='demo');$('#cvcTabLes').setAttribute('aria-selected',t==='les');
+  if(t==='demo')startDemo();else{T.lesson=null;lessonListHTML();startLesson(LESSONS[0].id);}
+}
+function openCvc(){
+  T.opener=document.activeElement;T.open=true;$('#cvc').hidden=false;document.body.style.overflow='hidden';
+  setTab(T.tab);$('#cvcBox').focus();
+}
+function closeCvc(){
+  T.open=false;T.gen++;stopTimer();T.busy=false;$('#cvc').hidden=true;document.body.style.overflow='';
+  if(T.opener&&T.opener.focus)T.opener.focus();
+}
+$('#cvcBtn').addEventListener('click',openCvc);
+$('#cvcClose').addEventListener('click',closeCvc);
+$('#cvc').addEventListener('click',e=>{if(e.target.id==='cvc')closeCvc();});
+$('#cvcTabDemo').addEventListener('click',()=>setTab('demo'));
+$('#cvcTabLes').addEventListener('click',()=>setTab('les'));
+$('#cvcRestart').addEventListener('click',()=>{if(T.tab==='demo')startDemo();else startLesson(T.lesson.id);});
+$('#cvcStep').addEventListener('click',()=>{advance(true);});
+$('#cvcPrev').addEventListener('click',()=>{
+  if(T.busy)return;T.finished=false;
+  if(T.vi>0)viewAt(T.vi-1,false);
+});
+$('#cvcBub').addEventListener('click',()=>{T.bub=!T.bub;$('#cvcBub').textContent=T.bub?_('Nascondi i fumetti','Hide the pop-ups'):_('Mostra i fumetti','Show the pop-ups');if(!T.bub)$('#cvcBubble').hidden=true;else if(T.pending)showBubble(T.pending);else if(T.vi>0)showBubble(T.recs[T.vi-1]);});
+$('#cvcSetup').addEventListener('click',e=>{const b=e.target.closest('button[data-les]');if(b)startLesson(b.dataset.les);});
+document.addEventListener('keydown',e=>{
+  if($('#cvc').hidden)return;
+  if(e.key==='Escape')closeCvc();
+  else if(e.key==='ArrowRight'&&!/^(SELECT|INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){e.preventDefault();if(!$('#cvcStep').disabled)advance(true);}
+  else if(e.key==='ArrowLeft'&&!/^(SELECT|INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){e.preventDefault();if(!$('#cvcPrev').disabled)$('#cvcPrev').click();}
+  else if(e.key==='Tab'){
+    const f=[...$('#cvcBox').querySelectorAll('button:not([disabled]):not([hidden]),select,input')].filter(x=>x.offsetParent!==null);
+    if(!f.length)return;const a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&(document.activeElement===a||document.activeElement===$('#cvcBox'))){e.preventDefault();z.focus();}
+    else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}
+  }
+});
+langHooks.push(()=>{
+  $('#cvcRestart').textContent=_('Ricomincia','Restart');$('#cvcPrev').textContent=_('Mossa precedente','Previous move');$('#cvcStep').textContent=_('Mossa successiva','Next move');
+  $('#cvcBub').textContent=T.bub?_('Nascondi i fumetti','Hide the pop-ups'):_('Mostra i fumetti','Show the pop-ups');
+  if(!T.open)return;
+  if(T.tab==='demo')setupHTML();else lessonListHTML();
+  if(T.lesson&&T.vi===0&&!T.pending){const bb=$('#cvcBubble');bb.innerHTML=lessonText();}
+  else if(T.finished&&T.lesson&&T.vi>=T.lesson.s.length){$('#cvcBubble').innerHTML=lessonEndHTML();}
+  else if(T.pending)showBubble(T.pending);
+  else if(T.vi>0)showBubble(T.recs[T.vi-1]);
+  else if(T.tab==='demo'){const bb=$('#cvcBubble');bb.innerHTML='<div class="cvc-bh"><b>'+_('Partita dimostrativa','Demonstration game')+'</b> <span class="chip">'+ruleName(T.rid)+'</span></div><p>'+ruleDesc(T.rid)+'</p><p>'+_('Il computer gioca contro se stesso. Gli Attaccanti giocano al livello '+LVN[T.lv[0]]+', i Difensori al livello '+LVN[T.lv[1]]+'. Prima di ogni mossa compare qui il motivo della scelta. Premi «Mossa successiva» (o la freccia destra) per avanzare: la partita non procede da sola.','The computer plays against itself. The Attackers play at '+LVN[T.lv[0]]+' level, the Defenders at '+LVN[T.lv[1]]+' level. Before each move the reason for the choice appears here. Press “Next move” (or the right arrow key) to advance: the game never moves on its own.')+'</p>';}
+  const s=T.snaps[T.vi];if(s)$('#cvcInfo').innerHTML=infoHTML(s,T.pending?T.pending.phase:(T.recs[T.vi-1]&&T.recs[T.vi-1].phase)||phaseOf(s));
+  logHTML();
+});
+
 startGame();
 })();
 

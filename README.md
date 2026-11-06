@@ -1,6 +1,6 @@
 # Tablut
 
-[![Versione](https://img.shields.io/badge/versione-1.0-blue)](#versioni)
+[![Versione](https://img.shields.io/badge/versione-1.1-blue)](#versioni)
 [![Licenza: AGPL v3](https://img.shields.io/badge/licenza-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![GitHub Pages](https://img.shields.io/badge/demo-GitHub%20Pages-222?logo=github)](#pubblicazione-su-github-pages)
 [![HTML5](https://img.shields.io/badge/HTML5-single%20file-E34F26?logo=html5&logoColor=white)](index.html)
@@ -12,11 +12,14 @@ Versione per browser del tablut, la forma di hnefatafl descritta da Linneo in La
 ## Caratteristiche
 
 - **Regole** ricostruite dal testo latino di Linneo (tavola 9×9, 25 pezzi, re al centro, castello, cattura tra due nemici, cattura contro il castello vuoto, regole speciali per la cattura del re, vittoria del re su qualsiasi casa del bordo, patta). Le aggiunte moderne (muove per primo l'attaccante, patta) e le interpretazioni sono elencate nel pannello «Regole, strategia, note e fonti».
-- **Avversario**: computer a tre livelli (facile, medio, difficile; il predefinito è medio) o due giocatori sullo stesso schermo. Si può giocare con gli attaccanti o con i difensori. Il computer usa una ricerca alfa-beta con valutazione ricavata dalla sezione di strategia del testo: vie libere del re verso il bordo, mobilità del re, blocco degli attaccanti, materiale.
+- **Quattro insiemi di regole** selezionabili nelle impostazioni (valgono dalla partita successiva): *Linneo (standard)*, predefinito; *Angoli (Pilarski)*, con vittoria del re su un angolo, castello e angoli ostili e riservati al re, limite di 100 mosse; *Cittadelle (Bologna)*, con i quattro accampamenti e il castello come cittadelle, fuga solo su caselle di bordo che non siano angoli né accampamenti, perde chi non può muovere; *Bannerlord (semplificato)*, con il re catturato da due lati ovunque. Il confronto fra le fonti e le scelte fatte dove i testi sono ambigui sono nel pannello «Regole, strategia, note e fonti».
+- **Avversario**: computer a tre livelli (facile, medio, difficile; il predefinito è medio) o due giocatori sullo stesso schermo. Si può giocare con gli attaccanti o con i difensori. Il computer usa una ricerca alfa-beta con valutazione ricavata dalla sezione di strategia del testo: vie libere del re verso il bordo (o l'angolo), mobilità del re, blocco degli attaccanti, materiale. Quando gioca i difensori ai livelli medio e difficile, negli insiemi Linneo e Bannerlord, usa la valutazione descritta da Pilarski, che nelle prove ha dato risultati migliori.
 - **Tavola** in legno con bordi intrecciati e nodi d'ispirazione norrena, case di partenza bruciate, castello al centro, pedine con motivo a quadrifoglio inciso e re con runa dorata. Le decorazioni sono disegnate nel codice, non copiate da immagini.
 - **Aiuti di gioco**: destinazioni possibili evidenziate (disattivabile), segnalazione delle vie libere del re (disattivabile), suggerimento, annulla mossa e proposta di patta (il computer accetta solo se ritiene la propria posizione peggiore).
 - **Audio** sintetizzato con Web Audio: effetti sonori (attivi di default) e colonna sonora d'ispirazione norrena (disattivata di default): bordone, tamburo a cornice, lira ad arco, canto di gola e corno, in re dorico a 66 battiti al minuto. La scelta è salvata nel browser.
 - **Regole illustrate**: 15 passi animati, dalla tavola alla strategia.
+- **Tutorial: partita guidata**: il computer gioca contro il computer, ma la partita avanza solo a comando dell'utente (pulsante «Mossa successiva» o freccia destra; «Mossa precedente» o freccia sinistra per tornare indietro) e un fumetto sulla tavola spiega il perché di ogni mossa: catture, minacce, vie del re bloccate o aperte, cordoni, sacrifici, con le alternative che perdevano quando la ricerca lo mostra. La partita è etichettata per fase (apertura, medio gioco, finale). La scheda *Lezioni* contiene 15 situazioni particolari (aperture, medio gioco, finali, per i diversi insiemi di regole), ciascuna verificata dal motore all'apertura della lezione e riprodotta con gli stessi fumetti.
+- **Verifica delle strategie**: le strategie delle fonti sono state provate con il motore; i numeri e i limiti delle prove sono nel pannello «Regole, strategia, note e fonti».
 - **Storia**: sequenza a titoli cinematografici dal testo fornito (Lapponia, Linneo, traduzione del 1811, varianti, riscoperta del latino). Durante la storia lo schermo del cellulare resta acceso.
 - **Lingua**: interfaccia in italiano e inglese, con selettore IT/EN nella pagina. L'italiano è la lingua predefinita; la scelta è salvata nel browser.
 - Tema chiaro e scuro automatico, layout adattabile a schermi piccoli. Con «riduci movimento» attivo nel sistema operativo le animazioni sono disattivate.
@@ -50,11 +53,15 @@ Apri `index.html` in un browser moderno. La pagina carica da Google Fonts, se ra
 | Versione | Contenuto |
 |---|---|
 | 1.0 | Prima versione: gioco completo con tre livelli di difficoltà, animazioni, audio, storia e regole illustrate, in italiano e inglese con selettore della lingua. |
+| 1.1 | Nuovi insiemi di regole (Angoli, Cittadelle, Bannerlord), tutorial guidato computer contro computer con spiegazioni, situazioni particolari, verifica delle strategie. |
 
 ## Fonti
 
 - Testo di storia, regole e strategia del tablut fornito dall'autore del progetto; le regole si basano sulla descrizione in latino di Carl Linnaeus (1732).
 - Immagini d'ispirazione per la tavola fornite dall'autore del progetto.
+- S. Pilarski, *Designing an Effective Tablut Artificial Intelligence*, McGill University (regole con vittoria all'angolo; valutazione euristica).
+- A. De Filippo, A. Galassi, A. Soriani, G. Trisolini, F. Baldo, F. Chesani, P. Mello, M. Milano (2025), *Improving the Teaching of Artificial Intelligence Through Project-Based Learning on a Board Game*, Intelligenza Artificiale 19(1), 17-29, doi:10.1177/17248035241297789 (regole con cittadelle).
+- Jubal, *The Tablut Grandmaster's Guide (Bannerlord)*, forum Exilian, 31 maggio 2020, <https://exilian.co.uk/forum/index.php?topic=6188.0> (guida a un videogioco, fonte non accademica).
 
 ## Licenza
 
