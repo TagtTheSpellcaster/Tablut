@@ -45,12 +45,6 @@ Il motore è stato verificato con 500 partite casuali complete (invarianti: 25 p
 
 Apri `index.html` in un browser moderno. La pagina carica da Google Fonts, se raggiungibile, i caratteri; senza, usa quelli di sistema.
 
-## Pubblicazione su GitHub Pages
-
-1. Copia `index.html` nella radice del repository.
-2. In *Settings → Pages* scegli il branch (ad esempio `main`) e la cartella `/ (root)`.
-3. La pagina sarà all'indirizzo `https://<utente>.github.io/<repository>/`.
-
 ## Versioni
 
 | Versione | Contenuto |
